@@ -33,14 +33,13 @@ export default function HeroSection() {
 
   return (
     <section className="py-24 md:py-32 relative overflow-hidden">
-      {/* Círculos decorativos no fundo com cores corrigidas */}
       <div 
         className="absolute top-1/4 -left-24 w-64 h-64 rounded-full opacity-50 blur-3xl"
-        style={{ backgroundColor: "hsl(252, 87%, 64%)" }} // Cor primária
+        style={{ backgroundColor: "hsl(252, 87%, 64%)" }} 
       ></div>
       <div 
         className="absolute bottom-1/4 -right-24 w-96 h-96 rounded-full opacity-50 blur-3xl"
-        style={{ backgroundColor: "hsl(191, 97%, 77%)" }} // Cor de acento
+        style={{ backgroundColor: "hsl(191, 97%, 77%)" }} 
       ></div>
       
       <div className="container relative z-10">
@@ -80,7 +79,6 @@ export default function HeroSection() {
           </motion.div>
         </div>
         
-        {/* Números e achievements com cores corretas */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -121,7 +119,6 @@ export default function HeroSection() {
           </div>
         </motion.div>
         
-        {/* Scroll indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
