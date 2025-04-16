@@ -280,10 +280,8 @@ export default function NielsenGame() {
   }
 
   useEffect(() => {
-    // Iniciar o jogo quando o componente é montado
     initGame()
     
-    // Limpar quando o componente é desmontado
     return () => {
       setTimerActive(false)
     }

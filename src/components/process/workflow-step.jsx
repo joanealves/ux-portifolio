@@ -81,7 +81,6 @@ export default function UXProcess() {
 
   return (
     <div className="mx-auto max-w-6xl">
-      {/* Steps Timeline */}
       <div className="flex flex-wrap md:flex-nowrap items-center justify-between mb-12 gap-4">
         {processSteps.map((step, index) => (
           <div key={step.id} className="flex items-center w-full md:w-auto">

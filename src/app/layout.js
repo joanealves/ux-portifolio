@@ -17,7 +17,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
+    <html lang="pt-BR" suppressHydrationWarning className="dark">
       <body className={cn(
         "min-h-screen bg-background font-sans antialiased",
         fontSans.variable
@@ -27,10 +27,11 @@ export default function RootLayout({ children }) {
           defaultTheme="dark"
           enableSystem={false}
           disableTransitionOnChange
+          forcedTheme="dark"
         >
-          <div className="relative flex min-h-screen flex-col">
+          <div className="relative flex min-h-screen flex-col bg-background">
             <Navbar />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 w-full">{children}</main>
             <Footer />
           </div>
         </ThemeProvider>
