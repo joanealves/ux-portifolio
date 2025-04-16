@@ -5,7 +5,6 @@ import { motion } from "framer-motion"
 import { Calendar, Briefcase, GraduationCap, Award, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-// Dados da timeline de carreira
 const timelineData = [
   {
     id: 1,

@@ -40,21 +40,17 @@ export default function Home() {
   const ctaRef = useRef(null)
   const ctaInView = useInView(ctaRef, { once: true, margin: "-100px" })
 
-  // Força o tema escuro na montagem do componente
   useEffect(() => {
     document.documentElement.classList.add('dark')
   }, [])
 
   return (
     <div className="w-full min-h-screen bg-background text-foreground pt-24">
-      {/* Hero Section */}
       <HeroSection />
       
-      {/* Skills Section com Cards */}
       <section className="py-16 w-full bg-dark-200">
         <div className="container mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {/* Skill Card 1 */}
             <div className="bg-dark-100 rounded-xl p-6 shadow-lg border border-muted/20 transform transition-all hover:-translate-y-1 hover:shadow-accent/10">
               <div className="h-12 w-12 rounded-lg bg-primary/20 flex items-center justify-center mb-4">
                 <MousePointer className="h-6 w-6 text-primary" />
@@ -65,7 +61,6 @@ export default function Home() {
               </p>
             </div>
             
-            {/* Skill Card 2 */}
             <div className="bg-dark-100 rounded-xl p-6 shadow-lg border border-muted/20 transform transition-all hover:-translate-y-1 hover:shadow-accent/10">
               <div className="h-12 w-12 rounded-lg bg-primary/20 flex items-center justify-center mb-4">
                 <Layers className="h-6 w-6 text-primary" />
@@ -76,7 +71,6 @@ export default function Home() {
               </p>
             </div>
             
-            {/* Skill Card 3 */}
             <div className="bg-dark-100 rounded-xl p-6 shadow-lg border border-muted/20 transform transition-all hover:-translate-y-1 hover:shadow-accent/10">
               <div className="h-12 w-12 rounded-lg bg-primary/20 flex items-center justify-center mb-4">
                 <Code className="h-6 w-6 text-primary" />
@@ -114,7 +108,7 @@ export default function Home() {
               variants={fadeInUp()}
               className="text-3xl md:text-4xl font-bold mb-4"
             >
-              Projetos em <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Destaque</span>
+              Projetos em <span className="bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">Destaque</span>
             </motion.h2>
             <motion.p 
               variants={fadeInUp(0.1)}
@@ -246,7 +240,7 @@ export default function Home() {
             transition={{ duration: 0.5 }}
           >
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-              Vamos criar algo <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">incrível</span> juntos!
+              Vamos criar algo <span className="bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">incrível</span> juntos!
             </h2>
             <p className="text-xl text-muted-foreground mb-8">
               Estou sempre aberta a novos projetos e colaborações.

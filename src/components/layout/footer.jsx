@@ -67,7 +67,7 @@ export default function Footer() {
             <h3 className="text-lg font-medium mb-4">Conecte-se</h3>
             <div className="flex space-x-4">
               <a 
-                href="https://github.com" 
+                href="https://github.com/joanealves/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="h-10 w-10 rounded-full flex items-center justify-center bg-dark-100 hover:bg-primary transition-colors duration-300"
@@ -75,15 +75,7 @@ export default function Footer() {
                 <Github className="h-5 w-5" />
               </a>
               <a 
-                href="https://twitter.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="h-10 w-10 rounded-full flex items-center justify-center bg-dark-100 hover:bg-primary transition-colors duration-300"
-              >
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a 
-                href="https://linkedin.com" 
+                href="https://www.linkedin.com/in/joane-alves-ribeiro/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="h-10 w-10 rounded-full flex items-center justify-center bg-dark-100 hover:bg-primary transition-colors duration-300"
@@ -91,7 +83,7 @@ export default function Footer() {
                 <Linkedin className="h-5 w-5" />
               </a>
               <a 
-                href="mailto:seuemail@exemplo.com"
+                href="mailto:joane.desenvolvimentoweb@gmail.com"
                 className="h-10 w-10 rounded-full flex items-center justify-center bg-dark-100 hover:bg-primary transition-colors duration-300"
               >
                 <Mail className="h-5 w-5" />
