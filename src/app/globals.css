@@ -1,77 +1,35 @@
-@tailwind utilities;
- 
-@layer base {
-  :root {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    
-    --primary: 252 87% 64%;
-    --primary-foreground: 0 0% 98%;
-    
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 0 0% 98%;
-    
-    --muted: 240 4% 16%;
-    --muted-foreground: 240 5% 64.9%;
-    
-    --accent: 191 97% 77%;
-    --accent-foreground: 240 5% 3.9%;
-    
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    
-    --border: 240 4% 16%;
-    --input: 240 4% 16%;
-    --ring: 240 4% 16%;
-    
-    --radius: 0.5rem;
-  }
+@import "tailwindcss";
+
+:root {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+
+  --primary: 252 87% 64%;
+  --primary-foreground: 0 0% 98%;
+
+  --secondary: 217 33% 17%;
+  --secondary-foreground: 0 0% 98%;
+
+  --muted: 240 4% 16%;
+  --muted-foreground: 240 5% 64.9%;
+
+  --accent: 191 97% 77%;
+  --accent-foreground: 240 5% 3.9%;
+
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 240 4% 16%;
+  --input: 240 4% 16%;
+  --ring: 240 4% 16%;
+
+  --radius: 0.5rem;
 }
 
-/* Estilo customizado para scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: hsl(var(--background));
-}
-
-::-webkit-scrollbar-thumb {
-  background: hsl(var(--muted));
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--primary));
-}
-
-/* Estilos para transições de página */
-.page-transition-enter {
-  opacity: 0;
-  transform: translateY(8px);
-}
-
-.page-transition-enter-active {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.4s, transform 0.4s;
-}
-
-.page-transition-exit {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.page-transition-exit-active {
-  opacity: 0;
-  transform: translateY(-8px);
-  transition: opacity 0.4s, transform 0.4s;
-}
 

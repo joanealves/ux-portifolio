@@ -3,181 +3,144 @@
 import { useEffect, useRef } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Code, MousePointer2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export default function HeroSection() {
-  const canvasRef = useRef(null)
+  // Ref para animação de "digitação"
+  const typeTextRef = useRef(null);
   
-  // Efeito de partículas animadas no fundo
   useEffect(() => {
-    const canvas = canvasRef.current
-    const ctx = canvas.getContext("2d")
-    let animationFrameId
-    
-    // Ajusta o canvas para o tamanho da janela
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
-    }
-    
-    window.addEventListener("resize", resizeCanvas)
-    resizeCanvas()
-    
-    // Configuração das partículas
-    const particlesArray = []
-    const numberOfParticles = 100
-    
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width
-        this.y = Math.random() * canvas.height
-        this.size = Math.random() * 3 + 1
-        this.speedX = Math.random() * 1 - 0.5
-        this.speedY = Math.random() * 1 - 0.5
-        this.color = `rgba(${Math.random() * 100 + 100}, ${Math.random() * 100 + 100}, ${Math.random() * 255}, ${Math.random() * 0.5 + 0.1})`
-      }
-      
-      update() {
-        this.x += this.speedX
-        this.y += this.speedY
-        
-        // Rebate nas bordas
-        if (this.x > canvas.width || this.x < 0) {
-          this.speedX = -this.speedX
+    // Animação simples de texto "digitado"
+    if (typeTextRef.current) {
+      const text = "UX/UI Designer";
+      let i = 0;
+      const typeInterval = setInterval(() => {
+        if (i <= text.length) {
+          typeTextRef.current.textContent = text.substring(0, i) + (i < text.length ? "|" : "");
+          i++;
+        } else {
+          clearInterval(typeInterval);
+          // Remover o cursor piscante após a digitação
+          setTimeout(() => {
+            if (typeTextRef.current) {
+              typeTextRef.current.textContent = text;
+            }
+          }, 500);
         }
-        if (this.y > canvas.height || this.y < 0) {
-          this.speedY = -this.speedY
-        }
-      }
+      }, 100);
       
-      draw() {
-        ctx.fillStyle = this.color
-        ctx.beginPath()
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
-        ctx.fill()
-      }
+      return () => clearInterval(typeInterval);
     }
-    
-    // Criar partículas
-    const init = () => {
-      for (let i = 0; i < numberOfParticles; i++) {
-        particlesArray.push(new Particle())
-      }
-    }
-    
-    init()
-    
-    // Conectar partículas próximas com linhas
-    const connect = () => {
-      for (let a = 0; a < particlesArray.length; a++) {
-        for (let b = a; b < particlesArray.length; b++) {
-          const dx = particlesArray[a].x - particlesArray[b].x
-          const dy = particlesArray[a].y - particlesArray[b].y
-          const distance = Math.sqrt(dx * dx + dy * dy)
-          
-          if (distance < 100) {
-            ctx.strokeStyle = `rgba(123, 104, 238, ${0.1 - distance/1000})`
-            ctx.lineWidth = 1
-            ctx.beginPath()
-            ctx.moveTo(particlesArray[a].x, particlesArray[a].y)
-            ctx.lineTo(particlesArray[b].x, particlesArray[b].y)
-            ctx.stroke()
-          }
-        }
-      }
-    }
-    
-    // Loop de animação
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      
-      for (let i = 0; i < particlesArray.length; i++) {
-        particlesArray[i].update()
-        particlesArray[i].draw()
-      }
-      
-      connect()
-      
-      animationFrameId = requestAnimationFrame(animate)
-    }
-    
-    animate()
-    
-    return () => {
-      window.removeEventListener("resize", resizeCanvas)
-      cancelAnimationFrame(animationFrameId)
-    }
-  }, [])
+  }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center">
-      {/* Canvas background */}
-      <canvas 
-        ref={canvasRef} 
-        className="absolute inset-0 z-0" 
-      />
+    <section className="py-24 md:py-32 relative overflow-hidden">
+      {/* Círculos decorativos no fundo */}
+      <div className="absolute top-1/4 -left-24 w-64 h-64 rounded-full bg-primary/5 blur-3xl"></div>
+      <div className="absolute bottom-1/4 -right-24 w-96 h-96 rounded-full bg-accent/5 blur-3xl"></div>
       
-      {/* Conteúdo */}
       <div className="container relative z-10">
-        <div className="max-w-3xl">
-          <motion.h1 
-            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
-            initial={{ opacity: 0, y: 30 }}
+        <div className="max-w-4xl mx-auto text-center mb-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: 0.6 }}
           >
-            Transformando ideias em{" "}
-            <span className="gradient-text">experiências</span>{" "}
-            memoráveis
-          </motion.h1>
-          
-          <motion.p 
-            className="text-xl text-muted-foreground mb-8 max-w-lg"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          >
-            Designer UX/UI especializado em criar interfaces centradas no usuário 
-            que são não apenas visualmente atraentes, mas também intuitivas e acessíveis.
-          </motion.p>
-          
-          <motion.div 
-            className="flex flex-col sm:flex-row gap-4 items-start"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-          >
-            <Button asChild size="lg" variant="glow">
-              <Link href="/projects">
-                Ver Projetos
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-            <Button asChild size="lg" variant="outline">
-              <Link href="/lab">
-                Explorar UX Lab
-              </Link>
-            </Button>
+            <span className="inline-block px-3 py-1 text-sm font-medium bg-primary/20 text-primary rounded-full mb-6">
+              Joane Alves
+            </span>
+            
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
+              Transformando ideias em
+              <span className="block mt-2 gradient-text">experiências memoráveis</span>
+            </h1>
+            
+            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Olá! Sou <span ref={typeTextRef} className="text-primary font-medium">|</span>{" "}
+              especialista em criar interfaces intuitivas e experiências que conectam pessoas a produtos.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button asChild size="lg" variant="default" className="gap-2">
+                <Link href="/projects">
+                  Ver Projetos
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline">
+                <Link href="/contact" className="gap-2">
+                  Entre em Contato
+                </Link>
+              </Button>
+            </div>
           </motion.div>
         </div>
-      </div>
-      
-      {/* Scroll indicator */}
-      <motion.div 
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 1 }}
-      >
+        
+        {/* Números e achievements */}
         <motion.div
-          className="w-6 h-10 rounded-full border-2 border-muted-foreground flex justify-center items-start p-1"
-          animate={{ y: [0, 5, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5 }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto mt-16"
         >
-          <div className="w-1 h-2 bg-muted-foreground rounded-full"></div>
+          <div className="bg-dark-100 p-5 rounded-xl border border-border flex items-center">
+            <div className="h-12 w-12 rounded-lg bg-primary/20 flex items-center justify-center mr-4">
+              <MousePointer2 className="h-6 w-6 text-primary" />
+            </div>
+            <div>
+              <div className="text-xl font-bold">UX Research</div>
+              <div className="text-sm text-muted-foreground">Centrado no usuário</div>
+            </div>
+          </div>
+          
+          <div className="bg-dark-100 p-5 rounded-xl border border-border flex items-center">
+            <div className="h-12 w-12 rounded-lg bg-accent/20 flex items-center justify-center mr-4">
+              <Code className="h-6 w-6 text-accent" />
+            </div>
+            <div>
+              <div className="text-xl font-bold">UI Design</div>
+              <div className="text-sm text-muted-foreground">Interfaces atrativas</div>
+            </div>
+          </div>
+          
+          <div className="bg-dark-100 p-5 rounded-xl border border-border flex items-center">
+            <div className="h-12 w-12 rounded-lg bg-primary/20 flex items-center justify-center mr-4">
+              <svg className="h-6 w-6 text-primary" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 12C2 8.68629 4.68629 6 8 6H16C19.3137 6 22 8.68629 22 12C22 15.3137 19.3137 18 16 18H8C4.68629 18 2 15.3137 2 12Z" stroke="currentColor" strokeWidth="2"/>
+                <path d="M16 12C16 13.1046 15.1046 14 14 14C12.8954 14 12 13.1046 12 12C12 10.8954 12.8954 10 14 10C15.1046 10 16 10.8954 16 12Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <div>
+              <div className="text-xl font-bold">Prototipagem</div>
+              <div className="text-sm text-muted-foreground">Validação rápida</div>
+            </div>
+          </div>
         </motion.div>
-      </motion.div>
+        
+        {/* Scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 1 }}
+          className="flex justify-center mt-20"
+        >
+          <motion.div
+            animate={{ y: [0, 10, 0] }}
+            transition={{ repeat: Infinity, duration: 2 }}
+            className="flex flex-col items-center"
+          >
+            <span className="text-sm text-muted-foreground mb-2">Scroll para ver mais</span>
+            <div className="w-6 h-10 rounded-full border-2 border-muted-foreground flex justify-center pt-2">
+              <motion.div 
+                animate={{ y: [0, 8, 0] }}
+                transition={{ repeat: Infinity, duration: 1.5 }}
+                className="w-1.5 h-1.5 rounded-full bg-primary"
+              ></motion.div>
+            </div>
+          </motion.div>
+        </motion.div>
+      </div>
     </section>
   )
 }
