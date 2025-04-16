@@ -78,68 +78,18 @@ export default function HeroSection() {
             </div>
           </motion.div>
         </div>
-        
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto mt-16"
-        >
-          <div className="bg-dark-100 p-5 rounded-xl border border-border flex items-center">
-            <div className="h-12 w-12 rounded-lg bg-primary/20 flex items-center justify-center mr-4">
-              <MousePointer2 className="h-6 w-6 text-primary" />
-            </div>
-            <div>
-              <div className="text-xl font-bold">UX Research</div>
-              <div className="text-sm text-muted-foreground">Centrado no usuário</div>
-            </div>
-          </div>
-          
-          <div className="bg-dark-100 p-5 rounded-xl border border-border flex items-center">
-            <div className="h-12 w-12 rounded-lg bg-accent/20 flex items-center justify-center mr-4">
-              <Code className="h-6 w-6 text-accent" />
-            </div>
-            <div>
-              <div className="text-xl font-bold">UI Design</div>
-              <div className="text-sm text-muted-foreground">Interfaces atrativas</div>
-            </div>
-          </div>
-          
-          <div className="bg-dark-100 p-5 rounded-xl border border-border flex items-center">
-            <div className="h-12 w-12 rounded-lg bg-primary/20 flex items-center justify-center mr-4">
-              <svg className="h-6 w-6 text-primary" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2 12C2 8.68629 4.68629 6 8 6H16C19.3137 6 22 8.68629 22 12C22 15.3137 19.3137 18 16 18H8C4.68629 18 2 15.3137 2 12Z" stroke="currentColor" strokeWidth="2"/>
-                <path d="M16 12C16 13.1046 15.1046 14 14 14C12.8954 14 12 13.1046 12 12C12 10.8954 12.8954 10 14 10C15.1046 10 16 10.8954 16 12Z" fill="currentColor"/>
-              </svg>
-            </div>
-            <div>
-              <div className="text-xl font-bold">Prototipagem</div>
-              <div className="text-sm text-muted-foreground">Validação rápida</div>
-            </div>
-          </div>
-        </motion.div>
-        
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 1 }}
-          className="flex justify-center mt-20"
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 2 }}
-            className="flex flex-col items-center"
-          >
-            <span className="text-sm text-muted-foreground mb-2">Scroll para ver mais</span>
-            <div className="w-6 h-10 rounded-full border-2 border-muted-foreground flex justify-center pt-2">
+        <div className="text-center mt-24">
+            <p className="text-sm text-muted-foreground">Scroll para ver mais</p>
+            <div className="h-10 w-6 border-2 border-muted-foreground rounded-full mx-auto mt-2 relative">
               <motion.div 
-                animate={{ y: [0, 8, 0] }}
+                className="h-2 w-2 bg-primary rounded-full absolute top-1 left-1/2 transform -translate-x-1/2"
+                animate={{ y: [0, 12, 0] }}
                 transition={{ repeat: Infinity, duration: 1.5 }}
-                className="w-1.5 h-1.5 rounded-full bg-primary"
-              ></motion.div>
+              />
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        
+        
       </div>
     </section>
   )

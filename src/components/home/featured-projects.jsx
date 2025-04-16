@@ -6,14 +6,13 @@ import { motion } from "framer-motion"
 import { ArrowUpRight, Eye } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-// Mock data para projetos em destaque
 const featuredProjects = [
   {
     id: 1,
     title: "Redesign de App Bancário",
     description: "Melhorando a experiência do usuário para um aplicativo bancário com mais de 5 milhões de usuários.",
     tags: ["UX Research", "UI Design", "Mobile App"],
-    image: "/api/placeholder/600/400", // Usando placeholders
+    image: "/api/placeholder/600/400",
     gradient: "from-blue-500 to-purple-600",
     link: "/projects/banking-app"
   },
@@ -54,7 +53,6 @@ export default function FeaturedProjects() {
             className="h-full rounded-xl overflow-hidden bg-dark-100 border border-border transition-all duration-300 hover:border-primary/50 relative flex flex-col"
             whileHover={{ y: -5, transition: { duration: 0.3 } }}
           >
-            {/* Image with gradient overlay */}
             <div className="relative h-48 w-full overflow-hidden">
               <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-30 group-hover:opacity-50 transition-opacity duration-500`}></div>
               <img 
@@ -62,7 +60,6 @@ export default function FeaturedProjects() {
                 alt={project.title} 
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
-              {/* View overlay on hover */}
               <div 
                 className={`absolute inset-0 bg-dark-200/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
               >
@@ -73,7 +70,6 @@ export default function FeaturedProjects() {
               </div>
             </div>
             
-            {/* Content */}
             <div className="flex-1 p-6 flex flex-col">
               <div className="flex items-start justify-between mb-2">
                 <h3 className="text-xl font-medium group-hover:text-primary transition-colors duration-300">{project.title}</h3>

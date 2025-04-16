@@ -47,7 +47,12 @@ export default function Home() {
     <div className="w-full min-h-screen bg-background text-foreground pt-24">
       <HeroSection />
       
-      <section className="py-16 w-full bg-dark-200">
+      <section className="py-28 w-full bg-dark-200">
+      <div className="text-center mb-12">
+        <h2 className="text-3xl md:text-4xl font-bold block mt-2 gradient-text">O que fazemos</h2>
+        <p className="text-muted-foreground mt-2">Soluções que combinam pesquisa, design e tecnologia.</p>
+      </div>
+
         <div className="container mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             <div className="bg-dark-100 rounded-xl p-6 shadow-lg border border-muted/20 transform transition-all hover:-translate-y-1 hover:shadow-accent/10">
@@ -83,7 +88,7 @@ export default function Home() {
           
           <div className="text-center mt-12">
             <p className="text-sm text-muted-foreground">Scroll para ver mais</p>
-            <div className="h-10 w-6 border-2 border-muted-foreground rounded-full mx-auto mt-2 relative">
+            <div className="h-10 w-6 border-2 border-muted-foreground rounded-full mx-auto mt-2 relative ">
               <motion.div 
                 className="h-2 w-2 bg-primary rounded-full absolute top-1 left-1/2 transform -translate-x-1/2"
                 animate={{ y: [0, 12, 0] }}
