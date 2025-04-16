@@ -7,13 +7,11 @@ import { ArrowRight, Code, MousePointer2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export default function HeroSection() {
-  // Ref para animação de "digitação"
   const typeTextRef = useRef(null);
   
   useEffect(() => {
-    // Animação simples de texto "digitado"
     if (typeTextRef.current) {
-      const text = "UX/UI Designer";
+      const text = "Me chamo Joane, UX/UI Designer,";
       let i = 0;
       const typeInterval = setInterval(() => {
         if (i <= text.length) {
@@ -21,7 +19,6 @@ export default function HeroSection() {
           i++;
         } else {
           clearInterval(typeInterval);
-          // Remover o cursor piscante após a digitação
           setTimeout(() => {
             if (typeTextRef.current) {
               typeTextRef.current.textContent = text;
@@ -37,8 +34,8 @@ export default function HeroSection() {
   return (
     <section className="py-24 md:py-32 relative overflow-hidden">
       {/* Círculos decorativos no fundo */}
-      <div className="absolute top-1/4 -left-24 w-64 h-64 rounded-full bg-primary/5 blur-3xl"></div>
-      <div className="absolute bottom-1/4 -right-24 w-96 h-96 rounded-full bg-accent/5 blur-3xl"></div>
+<div className="absolute top-1/4 -left-24 w-64 h-64 rounded-full bg-primary/50 blur-3xl"></div>
+<div className="absolute bottom-1/4 -right-24 w-96 h-96 rounded-full bg-accent/50 blur-3xl"></div>
       
       <div className="container relative z-10">
         <div className="max-w-4xl mx-auto text-center mb-12">
@@ -57,8 +54,8 @@ export default function HeroSection() {
             </h1>
             
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Olá! Sou <span ref={typeTextRef} className="text-primary font-medium">|</span>{" "}
-              especialista em criar interfaces intuitivas e experiências que conectam pessoas a produtos.
+              Olá! <span ref={typeTextRef} className="text-primary font-medium">|</span>{" "}
+               especialista em criar interfaces intuitivas e experiências que conectam pessoas a produtos.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

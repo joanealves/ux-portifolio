@@ -1,5 +1,7 @@
 import Link from "next/link"
 import { Github, Twitter, Linkedin, Mail, ArrowUpRight } from "lucide-react"
+import Image from 'next/image'
+import Logo from '../../assets/logo.png'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -10,9 +12,16 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Coluna 1 - Logo e Descrição */}
           <div className="space-y-4">
-            <Link href="/" className="text-2xl font-bold gradient-text inline-block">
-              UX Portfolio
-            </Link>
+          <Link href="/" className="inline-block">
+      <Image
+        src={Logo}
+        alt="UX Portfolio"
+        width={40} 
+        height={40}
+        className="object-contain"
+        priority
+      />
+    </Link>
             <p className="text-muted-foreground max-w-md">
               Um portfólio interativo criado para demonstrar minhas habilidades em UX/UI Design,
               através de projetos e experimentos interativos.

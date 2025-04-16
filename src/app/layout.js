@@ -11,8 +11,11 @@ const fontSans = FontSans({
 });
 
 export const metadata = {
-  title: 'Portfólio UX/UI Designer',
+  title: 'Joane Alves - UX/UI Designer',
   description: 'Meu portfólio de UX/UI Design com projetos e jogos interativos',
+  icons: {
+    icon: '/favicon.png',
+  }
 };
 
 export default function RootLayout({ children }) {

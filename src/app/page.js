@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button"
 import HeroSection from "@/components/home/hero-section"
 import FeaturedProjects from "@/components/home/featured-projects"
 
-// Animações
 const fadeInUp = (delay = 0) => ({
   hidden: { opacity: 0, y: 20 },
   visible: { 
