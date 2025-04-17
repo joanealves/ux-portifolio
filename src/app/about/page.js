@@ -1,10 +1,10 @@
 export default function AboutPage() {
     return (
-      <section className="min-h-screen bg-background text-foreground px-6 md:px-24 py-24 flex items-center">
+      <section className="min-h-screen bg-background text-foreground px-6 md:px-24 py-32 flex items-center">
         <div className="w-full max-w-5xl mx-auto space-y-12">
           <div>
-            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">
-              <span className="gradient-text">Sobre Joane Alves</span>
+            <h1 className="text-4xl md:text-4xl font-extrabold tracking-tight">
+              <span className="gradient-text">Quem é Joane Alves</span>
             </h1>
             <p className="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
               Desde 2021, venho desenhando experiências que conectam pessoas, emoções e tecnologia.
@@ -15,6 +15,12 @@ export default function AboutPage() {
             <p>
               Sou <strong className="text-primary">UX/UI Designer</strong> com foco em criar experiências digitais intuitivas, acessíveis e centradas no usuário. 
               Acredito no design como ferramenta estratégica para resolver problemas reais e transformar ideias em soluções encantadoras.
+            </p>
+            <p> Eu iniciei no design e  na fotografia, trabalhei em agências e studios.
+              Na pandemia, tive minha primeira  experiência com UXUI, fiz alguns cursos e quando precisei criar um projeto que conectava Pcds ao mercado de tecnologia, me senti desafiada, a entender como a acessebilidade impacta tanto a vida das pessoas.
+            </p>
+            <p> Percebi que o UX é capaz de mudar a realidade dos usuários, aliado as tecnologias. 
+              Andando junto ao desenvolvimento, pode gerar uma mudança, nos habitos dos usuários e das empresas. Impactando o jeito que o mercado funciona, gerando assim "lucros" para os dois lados.
             </p>
   
             <p>
@@ -27,7 +33,7 @@ export default function AboutPage() {
             </p>
           </div>
   
-          <div className="pt-10 border-t border-border">
+          <div className="pt-6 border-t border-border">
             <h2 className="text-xl font-semibold mb-4 text-accent">Principais habilidades</h2>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-muted-foreground text-sm md:text-base">
               <li>🔍 UX Research & Testes de Usabilidade</li>
