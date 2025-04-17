@@ -124,37 +124,44 @@ export default function Home() {
     </motion.div>
     
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-        className="group relative rounded-2xl overflow-hidden bg-gradient-to-br from-indigo-900/10 to-indigo-800/5 backdrop-blur-sm shadow-xl"
-      >
-      <div className="h-48 bg-indigo-500/10 rounded-t-2xl flex items-center justify-center">
-        <div className="relative w-16 h-16">
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.1 }}
+      className="group relative rounded-2xl overflow-hidden bg-gradient-to-br from-indigo-900/10 to-indigo-800/5 backdrop-blur-sm shadow-xl"
+    >
+      <div className="relative w-full h-48"> 
         <Image
           src={CapaPortifolio}
-          alt="Schema Desenvolvimento"
-          width={40}
-          height={40}
+          alt="Capa do Portfólio"
+          fill
+          className="object-cover"
+          sizes="100vw"
+          priority
         />
-
-        </div>
       </div>
-        <div className="h-48 bg-indigo-500/10 rounded-t-2xl flex items-center justify-center">
-        </div>
-        <div className="p-8">
-          <h3 className="text-xl font-medium mb-3 group-hover:text-primary transition-colors">Site Portifólio Desenvolvimento</h3>
-          <p className="text-muted-foreground mb-6">
-           Concepção do UXUI do site de portifólio de Desenvolvimento.
-          </p>
-          <Link href="https://www.figma.com/design/GHBb29M9AXwWo4tqbszjuz/Joane-portif%C3%B3lio?node-id=47-2238&t=pYiEeOOZWoy4Hedb-1" className="inline-flex items-center text-primary hover:text-accent transition-colors group-hover:translate-x-1 duration-300">
-            Ver detalhes
-            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-      </motion.div>
+
+      <div className="p-8">
+        <h3 className="text-xl font-medium mb-3 group-hover:text-primary transition-colors">
+          Site Portifólio Desenvolvimento
+        </h3>
+        <p className="text-muted-foreground mb-6">
+          Concepção do UXUI do site de portifólio de Desenvolvimento.
+        </p>
+        <Link
+            href="https://www.figma.com/design/GHBb29M9AXwWo4tqbszjuz/Joane-portif%C3%B3lio?node-id=47-2238&t=Ki3WEP17Wux02H23-1"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center text-primary hover:text-accent transition-colors group-hover:translate-x-1 duration-300"
+          >
+          Ver detalhes
+          <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+        </Link>
+      </div>
+
+      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+    </motion.div>
+
       
       <motion.div 
         initial={{ opacity: 0, y: 20 }}

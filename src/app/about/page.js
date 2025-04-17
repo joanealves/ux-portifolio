@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 export default function AboutPage() {
     return (
       <section className="min-h-screen bg-background text-foreground px-6 md:px-24 py-32 flex items-center">
@@ -32,7 +34,24 @@ export default function AboutPage() {
               Meu diferencial está na ponte entre criatividade e tecnologia — minha experiência como <span className="text-accent">desenvolvedora Full Stack</span> me permite colaborar de forma mais integrada com engenheiros e transformar designs em experiências reais com precisão.
             </p>
           </div>
-  
+          <div className="space-y-4 mt-8">
+            <p className="text-base md:text-lg leading-loose">
+              Além do design, também atuo como <strong className="text-primary">desenvolvedora Full Stack</strong>.  
+              Essa combinação me permite transformar ideias em experiências completas — do conceito ao código, do protótipo ao produto final.
+            </p>
+
+            <a
+              href="https://joanealves.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block"
+            >
+              <button className="px-6 py-3 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-semibold shadow-lg hover:brightness-110 transition-all">
+                💻 Ver Portfólio de Desenvolvimento
+              </button>
+            </a>
+          </div>
+ 
           <div className="pt-6 border-t border-border">
             <h2 className="text-xl font-semibold mb-4 text-accent">Principais habilidades</h2>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-muted-foreground text-sm md:text-base">
