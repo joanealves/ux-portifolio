@@ -47,6 +47,7 @@ export default function Navbar() {
         >
           UX Portfolio
         </Link>
+        
 
         <nav className="hidden md:block">
           <ul className="flex space-x-8">

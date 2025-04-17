@@ -49,9 +49,6 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="inline-block px-3 py-1 text-sm font-medium bg-primary/20 text-primary rounded-full mb-6">
-              Joane Alves
-            </span>
             
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
               Transformando ideias em
