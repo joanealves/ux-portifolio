@@ -8,6 +8,8 @@ import { ArrowRight, MousePointer, Layers, Lightbulb, Code } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import HeroSection from "@/components/home/hero-section"
 import CapaPortifolio from "../assets/capa_portifolio.png"
+import CapaTech from "../assets/capa_tech.png"
+import CapaImobiliaria from "../assets/capa_imobiliaria.png"
  
 const fadeInUp = (delay = 0) => ({
   hidden: { opacity: 0, y: 20 },
@@ -124,92 +126,106 @@ export default function Home() {
     </motion.div>
     
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.1 }}
-      className="group relative rounded-2xl overflow-hidden bg-gradient-to-br from-indigo-900/10 to-indigo-800/5 backdrop-blur-sm shadow-xl"
-    >
-      <div className="relative w-full h-48"> 
-        <Image
-          src={CapaPortifolio}
-          alt="Capa do Portfólio"
-          fill
-          className="object-cover"
-          sizes="100vw"
-          priority
-        />
-      </div>
+      <motion.a 
+        href="https://www.figma.com/design/GHBb29M9AXwWo4tqbszjuz/Joane-portif%C3%B3lio?node-id=47-2238&t=Ki3WEP17Wux02H23-1"
+        target="_blank"
+        rel="noopener noreferrer"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className="group relative rounded-2xl overflow-hidden bg-gradient-to-br from-blue-950 to-gray-900/5 backdrop-blur-sm shadow-xl block cursor-pointer"
+      >
+        <div className="relative w-full h-48"> 
+          <Image
+            src={CapaPortifolio}
+            alt="Capa do Portfólio"
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority
+          />
+        </div>
 
-      <div className="p-8">
-        <h3 className="text-xl font-medium mb-3 group-hover:text-primary transition-colors">
-          Site Portifólio Desenvolvimento
-        </h3>
-        <p className="text-muted-foreground mb-6">
-          Concepção do UXUI do site de portifólio de Desenvolvimento.
-        </p>
-        <Link
-            href="https://www.figma.com/design/GHBb29M9AXwWo4tqbszjuz/Joane-portif%C3%B3lio?node-id=47-2238&t=Ki3WEP17Wux02H23-1"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center text-primary hover:text-accent transition-colors group-hover:translate-x-1 duration-300"
-          >
-          Ver detalhes
-          <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-        </Link>
-      </div>
+        <div className="p-8">
+          <h3 className="text-xl font-medium mb-3 group-hover:text-primary transition-colors">
+            Site Portifólio Desenvolvimento
+          </h3>
+          <p className="text-muted-foreground mb-6">
+            Concepção do UXUI do site de portifólio de Desenvolvimento.
+          </p>
+          <span className="inline-flex items-center text-primary hover:text-accent transition-colors group-hover:translate-x-1 duration-300">
+            Ver detalhes
+            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+          </span>
+        </div>
 
-      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-    </motion.div>
+        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      </motion.a>
 
-      
-      <motion.div 
+      <motion.a 
+        href="https://enchanting-hawk-c29.notion.site/UX-Files-76950fc280cb4845b87d83beb5f743e3"
+        target="_blank"
+        rel="noopener noreferrer"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="group relative rounded-2xl overflow-hidden bg-gradient-to-br from-green-900/10 to-green-800/5 backdrop-blur-sm shadow-xl"
+        className="group relative rounded-2xl overflow-hidden bg-gradient-to-br from-blue-950 to-gray-900/5 backdrop-blur-sm shadow-xl block cursor-pointer"
       >
-        <div className="h-48 bg-green-500/10 rounded-t-2xl flex items-center justify-center">
-          <div className="bg-green-500/20 rounded-full p-4">
-            <Lightbulb className="h-10 w-10 text-green-300" />
-          </div>
+         <div className="relative w-full h-48"> 
+          <Image
+            src={CapaTech}
+            alt="Capa proejto Tech Inclusiva"
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority
+          />
         </div>
         <div className="p-8">
-          <h3 className="text-xl font-medium mb-3 group-hover:text-primary transition-colors">E-commerce de Moda Sustentável</h3>
+          <h3 className="text-xl font-medium mb-3 group-hover:text-primary transition-colors">Tech Inclusiva</h3>
           <p className="text-muted-foreground mb-6">
-            Design focado em transparência e consciência ambiental para consumo consciente
+            Design focado em usabilidade e consciência para acessibilidade. Neste projeto você pode acompanhar todo fluxo de UX. Desenvolvido em grupo.
           </p>
-          <Link href="/projects/eco-fashion" className="inline-flex items-center text-primary hover:text-accent transition-colors">
+          <span className="inline-flex items-center text-primary hover:text-accent transition-colors group-hover:translate-x-1 duration-300">
             Ver detalhes
             <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
+          </span>
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-      </motion.div>
+      </motion.a>
       
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="group relative rounded-2xl overflow-hidden bg-gradient-to-br from-orange-900/10 to-orange-800/5 backdrop-blur-sm shadow-xl"
-        >
-          <div className="h-48 bg-orange-500/10 rounded-t-2xl flex items-center justify-center">
-            <div className="bg-orange-500/20 rounded-full p-4">
-              <Code className="h-10 w-10 text-orange-300" />
-            </div>
-          </div>
-          <div className="p-8">
-            <h3 className="text-xl font-medium mb-3 group-hover:text-primary transition-colors">Dashboard de Análise de Dados</h3>
-            <p className="text-muted-foreground mb-6">
-              Visualização de dados complexos de forma simples e intuitiva para tomadas de decisão
-            </p>
-            <Link href="/projects/data-dashboard" className="inline-flex items-center text-primary hover:text-accent transition-colors">
-              Ver detalhes
-              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-        </motion.div>
+      {/* Terceiro Card - Dashboard */}
+      <motion.a 
+        href="https://www.figma.com/design/66KuZV4x9ViytCyo90X77l/CMS-para-Imobili%C3%A1ria---JSI-Im%C3%B3veis?node-id=1-2&t=Jlyofu8r2wumrcnN-1" 
+        target="_blank"
+        rel="noopener noreferrer"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+        className="group relative rounded-2xl overflow-hidden bg-gradient-to-br from-blue-950 to-gray-900/5 backdrop-blur-sm shadow-xl block cursor-pointer"
+      >
+        <div className="relative w-full h-48"> 
+          <Image
+            src={CapaImobiliaria}
+            alt="Capa proejto Tech Inclusiva"
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority
+          />
+        </div>
+        <div className="p-8">
+          <h3 className="text-xl font-medium mb-3 group-hover:text-primary transition-colors">Dashboard de Análise de Dados</h3>
+          <p className="text-muted-foreground mb-6">
+            Visualização de dados complexos de forma simples e intuitiva para tomadas de decisão
+          </p>
+          <span className="inline-flex items-center text-primary hover:text-accent transition-colors group-hover:translate-x-1 duration-300">
+            Ver detalhes
+            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+          </span>
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      </motion.a>
       </div>
       
       <div className="text-center mt-16">
