@@ -6,7 +6,6 @@ import { CheckCircle, XCircle, RefreshCw, HelpCircle, Trophy } from "lucide-reac
 import { Button } from "@/components/ui/button"
 import { shuffle } from "@/lib/utils"
 
-// Dados das heurísticas de Nielsen
 const nielsenHeuristics = [
   {
     id: 1,
@@ -122,7 +121,6 @@ export default function NielsenGame() {
   const [countdown, setCountdown] = useState(15)
   const [timerActive, setTimerActive] = useState(false)
   
-  // Inicializar ou reiniciar o jogo
   const initGame = () => {
     setScore(0)
     setTotalQuestions(0)
@@ -162,30 +160,24 @@ export default function NielsenGame() {
     setTotalQuestions(prev => prev + 1);
   };
   
-  // Gerar uma nova questão
   const generateQuestion = () => {
-    // Escolher uma heurística aleatória
     const heuristics = [...nielsenHeuristics]
     const questionIndex = Math.floor(Math.random() * heuristics.length)
     const correctHeuristic = heuristics[questionIndex]
     
-    // Remover a heurística escolhida para criar opções erradas
     heuristics.splice(questionIndex, 1)
     
-    // Selecionar 3 heurísticas erradas aleatoriamente
     const wrongOptions = shuffle(heuristics).slice(0, 3).map(h => ({
       id: h.id,
       title: h.title,
       correct: false
     }))
     
-    // Adicionar a opção correta e embaralhar todas as opções
     const allOptions = shuffle([
       ...wrongOptions,
       { id: correctHeuristic.id, title: correctHeuristic.title, correct: true }
     ])
     
-    // Exemplo aleatório da heurística correta
     const randomExampleIndex = Math.floor(Math.random() * correctHeuristic.examples.length)
     
     setCurrentQuestion({
@@ -196,12 +188,10 @@ export default function NielsenGame() {
     })
     setOptions(allOptions)
     
-    // Iniciar o timer
     setCountdown(15)
     setTimerActive(true)
   }
   
-  // Verificar resposta selecionada
   const checkAnswer = (option) => {
     setTimerActive(false)
     setTotalQuestions(prev => prev + 1)
@@ -220,9 +210,7 @@ export default function NielsenGame() {
     }
   }
   
-  // Avançar para a próxima questão
   const handleNext = () => {
-    // Se já respondeu 10 perguntas, encerrar o jogo
     if (totalQuestions >= 10) {
       setGameCompleted(true)
       setGameActive(false)
@@ -233,7 +221,6 @@ export default function NielsenGame() {
     }
   }
   
-  // Renderizar barra de progresso
   const renderProgressBar = () => {
     const progress = (totalQuestions / 10) * 100
     return (
@@ -246,7 +233,6 @@ export default function NielsenGame() {
     )
   }
   
-  // Renderizar resultado final
   const renderResult = () => {
     let message = ""
     let icon = null
@@ -382,7 +368,7 @@ export default function NielsenGame() {
                 </motion.div>
               )}
             </AnimatePresence>
-          </div>
+          </div> 
         </>
       ) : (
         renderResult()

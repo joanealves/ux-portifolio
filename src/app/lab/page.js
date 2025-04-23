@@ -8,9 +8,13 @@ import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { ArrowRight, X } from "lucide-react"
 
-const NielsenGame = dynamic(() => import('@/components/lab/nielsen-game'), { ssr: false })
-const FittsLawGame = dynamic(() => import('@/components/lab/fitts-law-game'), { ssr: false })
-import ConsistencyGame from "@/components/lab/consistency-game"
+const NielsenGame = dynamic(() => import('@/components/lab/NielsenGame'), { ssr: false })
+const FittsLawGame = dynamic(() => import('@/components/lab/FittsLawFGame'), { ssr: false })
+import ConsistencyGame from "@/components/lab/ConsistencyGame"
+import HicksLawGame from "@/components/lab/HicksLawGame"
+import ProximityGame from "@/components/lab/ProximityGame"
+import MemoryGame from "@/components/lab/MemoryGAme"
+import DragAndDropGame from "@/components/lab/DragAndDropGame"
 
 const games = [
   {
@@ -30,8 +34,35 @@ const games = [
     title: "Consistência ou Confusão?",
     description: "Identifique qual design segue melhor os padrões de consistência visual.",
     component: <ConsistencyGame />
+  },
+  {
+    id: "hicks-law",
+    title: "Hick’s Law Sprint",
+    description: "Quantas opções são demais? Teste sua velocidade de decisão conforme o número de escolhas aumenta.",
+    component: <HicksLawGame />
+  },
+  {
+    id: "proximity",
+    title: "Lei da Proximidade – Agrupe ou Confunda",
+    description: "Será que o agrupamento dos elementos ajuda ou atrapalha? Descubra os princípios da Gestalt na prática.",
+    component: <ProximityGame />
+  },
+  
+  {
+    id: "memory",
+    title: "Jogo da Memória",
+    description: "Encontre os pares de frutas neste jogo de memória visual.",
+    component: <MemoryGame />
+  },
+  {
+    id: "drag-and-drop",
+    title: "Drag and Drop Challenge",
+    description: "Arraste os itens para os grupos corretos.",
+    component: <DragAndDropGame />
   }
 ]
+
+
 
 export default function Lab() {
   const [activeGame, setActiveGame] = useState(null)
