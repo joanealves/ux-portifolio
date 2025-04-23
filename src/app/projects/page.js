@@ -21,9 +21,9 @@ const projects = [
     link: '/projects/audiobooks',
   },
   {
-    title: 'E-commerce Dark Mode',
-    description: 'UI Kit · Microinterações · Fluidez',
-    link: '/projects/ecommerce-dark',
+    title: 'E-commerce',
+    description: 'UI',
+    link: 'https://www.figma.com/design/XNIvlsu2557LMc5GzDM9ab/E-commerce-Website?node-id=39-1402&t=KCmaB2eNWorB26OJ-1',
   },
 ];
 

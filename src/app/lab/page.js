@@ -84,7 +84,6 @@ export default function Lab() {
           <DialogHeader className="flex flex-row items-center justify-between">
             <DialogTitle className="text-gray-100">{selectedGame?.title}</DialogTitle>
             <Button variant="ghost" size="icon" onClick={closeGameModal} className="text-gray-300 hover:text-gray-100">
-              <X className="h-4 w-4" />
             </Button>
           </DialogHeader>
           <div className="mt-4">
