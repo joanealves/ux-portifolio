@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 
-import capaImobiliaria from '../../assets/capaImobiliaria.png';
+import CapaImobiliaria from '../../assets/capaImobiliaria.png';
 import ecomerceCover from '../../assets/ecomerce.png';
 
 
@@ -26,7 +26,7 @@ const projects = [
     title: 'Plataforma de Imobiliaria',
     description: 'UX · Testes com usuários',
     link: 'https://www.figma.com/proto/66KuZV4x9ViytCyo90X77l/CMS-para-Imobili%C3%A1ria---JSI-Im%C3%B3veis?node-id=44-605&p=f&t=K1d9jJQX41eiPHj9-1&scaling=scale-down&content-scaling=fixed&page-id=1%3A2&starting-point-node-id=44%3A605',
-    image: capaImobiliaria,
+    image: CapaImobiliaria,
   },
   {
     title: 'E-commerce',

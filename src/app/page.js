@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import HeroSection from "@/components/home/hero-section"
 import CapaPortifolio from "../assets/capa_portifolio.png"
 import CapaTech from "../assets/capa_tech.png"
-import capaImobiliaria from '../assets/capaImobiliaria.png';
+import CapaImobiliaria from '../assets/capaImobiliaria.png';
  
 const fadeInUp = (delay = 0) => ({
   hidden: { opacity: 0, y: 20 },
