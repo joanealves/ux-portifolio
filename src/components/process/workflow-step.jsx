@@ -105,7 +105,6 @@ export default function UXProcess() {
         ))}
       </div>
 
-      {/* Expanded Step Content */}
       <div className="mt-8">
         {activeStep && (
           <motion.div

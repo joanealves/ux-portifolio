@@ -13,6 +13,7 @@ export default function UXProcessPage() {
       title: "Pesquisa",
       icon: <Search className="h-6 w-6" />,
       color: "bg-blue-500",
+      hoverColor: "bg-blue-600",
       description: "Investigação profunda para entender necessidades, comportamentos e pain points dos usuários.",
       activities: [
         "Entrevistas com usuários",
@@ -27,6 +28,7 @@ export default function UXProcessPage() {
       title: "Definição",
       icon: <Lightbulb className="h-6 w-6" />,
       color: "bg-purple-500",
+      hoverColor: "bg-purple-600",
       description: "Síntese de insights para definir claramente o problema e oportunidades de design.",
       activities: [
         "Personas e cenários",
@@ -41,6 +43,7 @@ export default function UXProcessPage() {
       title: "Ideação",
       icon: <Edit3 className="h-6 w-6" />,
       color: "bg-amber-500",
+      hoverColor: "bg-amber-600",
       description: "Geração de múltiplas soluções criativas baseadas nas necessidades identificadas.",
       activities: [
         "Brainstorming",
@@ -55,6 +58,7 @@ export default function UXProcessPage() {
       title: "Prototipagem",
       icon: <LayoutPanelTop className="h-6 w-6" />,
       color: "bg-green-500",
+      hoverColor: "bg-green-600",
       description: "Criação de protótipos interativos para testar conceitos antes do desenvolvimento.",
       activities: [
         "Wireframes",
@@ -69,6 +73,7 @@ export default function UXProcessPage() {
       title: "Implementação",
       icon: <Code className="h-6 w-6" />,
       color: "bg-red-500",
+      hoverColor: "bg-red-600",
       description: "Trabalho colaborativo com desenvolvedores para transformar designs em produtos reais.",
       activities: [
         "Documentação técnica",
@@ -123,9 +128,9 @@ export default function UXProcessPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            Nosso Processo de UX Design
+            Meu Processo de UX Design
           </motion.h1>
-          
+
           <motion.div 
             className="flex flex-wrap md:flex-nowrap items-center justify-between mb-12 gap-4"
             initial={{ opacity: 0, y: 20 }}
@@ -136,20 +141,23 @@ export default function UXProcessPage() {
               <div key={step.id} className="flex items-center w-full md:w-auto">
                 <button
                   onClick={() => setActiveStep(activeStep === step.id ? null : step.id)}
-                  className={`flex items-center space-x-2 w-full md:w-auto rounded-lg transition-all duration-300 ${
+                  className={`flex items-center space-x-2 w-full md:w-auto rounded-lg transition-all duration-300 cursor-pointer ${
                     activeStep === step.id 
                       ? "bg-dark-100 p-3 shadow-lg border border-primary/50" 
-                      : "p-3 hover:bg-dark-100"
+                      : "p-3 hover:bg-dark-100 hover:shadow-md hover:border hover:border-primary/30"
                   }`}
+                  aria-label={`Mostrar detalhes do passo ${step.title}`}
                 >
-                  <div className={`w-10 h-10 rounded-full ${step.color} flex items-center justify-center text-dark-foreground`}>
+                  <div 
+                    className={`w-10 h-10 rounded-full ${step.color} hover:${step.hoverColor} flex items-center justify-center text-dark-foreground transition-all duration-300 transform ${activeStep === step.id ? "scale-110" : "hover:scale-105"}`}
+                  >
                     {step.icon}
                   </div>
-                  <span className={`font-medium ${activeStep === step.id ? "text-primary" : ""}`}>{step.title}</span>
+                  <span className={`font-medium transition-colors duration-300 ${activeStep === step.id ? "text-primary" : "hover:text-primary"}`}>{step.title}</span>
                 </button>
                 
                 {index < processSteps.length - 1 && (
-                  <ArrowRight className="hidden md:block mx-2 text-muted-foreground" />
+                  <ArrowRight className="hidden md:block mx-2 text-muted-foreground animate-pulse" />
                 )}
               </div>
             ))}
@@ -161,13 +169,13 @@ export default function UXProcessPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="bg-dark-100 p-6 rounded-xl border border-border"
+                className="bg-dark-100 p-6 rounded-xl border border-border shadow-lg"
               >
                 {processSteps.map((step) => 
                   step.id === activeStep && (
                     <div key={`content-${step.id}`}>
                       <div className="flex items-center mb-4">
-                        <div className={`w-12 h-12 rounded-full ${step.color} flex items-center justify-center text-dark-foreground mr-4`}>
+                        <div className={`w-12 h-12 rounded-full ${step.color} hover:${step.hoverColor} flex items-center justify-center text-dark-foreground mr-4 transition-all duration-300 transform hover:scale-110 cursor-pointer`}>
                           {step.icon}
                         </div>
                         <h3 className="text-2xl font-bold">{step.title}</h3>
@@ -178,13 +186,12 @@ export default function UXProcessPage() {
                       <h4 className="font-medium mb-3">Atividades principais:</h4>
                       <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         {step.activities.map((activity, i) => (
-                          <li key={i} className="flex items-center">
-                            <div className={`w-2 h-2 rounded-full ${step.color} mr-3`}></div>
-                            {activity}
+                          <li key={i} className="flex items-center group cursor-pointer p-2 rounded hover:bg-dark-200 transition-all duration-200">
+                            <div className={`w-2 h-2 rounded-full ${step.color} group-hover:${step.hoverColor} mr-3 transition-all duration-300 group-hover:scale-150`}></div>
+                            <span className="group-hover:text-primary transition-colors duration-300">{activity}</span>
                           </li>
                         ))}
                       </ul>
-                      
                     </div>
                   )
                 )}
@@ -203,9 +210,15 @@ export default function UXProcessPage() {
           transition={{ duration: 0.6, delay: i * 0.1 }}
           viewport={{ once: false, amount: 0.3 }}
         >
-          <div className="mb-6">{step.icon}</div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">{step.title}</h2>
-          <p className="max-w-xl text-lg text-muted-foreground">{step.desc}</p>
+          <motion.div 
+            className="mb-6 p-4 rounded-full bg-dark-100 hover:bg-dark-200 cursor-pointer transition-all duration-300 hover:shadow-md"
+            whileHover={{ scale: 1.1, rotate: 5 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {step.icon}
+          </motion.div>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 hover:text-primary transition-colors duration-300">{step.title}</h2>
+          <p className="max-w-xl text-lg text-muted-foreground hover:text-foreground transition-colors duration-500">{step.desc}</p>
         </motion.div>
       ))}
 
@@ -216,13 +229,26 @@ export default function UXProcessPage() {
         transition={{ duration: 0.5, delay: 0.2 }}
         viewport={{ once: false, amount: 0.3 }}
       >
-        <Mail className="w-8 h-8 text-accent mb-4" />
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">
+        <motion.div 
+          className="mb-4 p-5 rounded-full bg-dark-100 hover:bg-dark-200 cursor-pointer transition-all duration-300"
+          whileHover={{ scale: 1.2, rotate: 15 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          <Mail className="w-8 h-8 text-accent" />
+        </motion.div>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 hover:text-primary transition-colors duration-300">
           Vamos conversar?
         </h2>
-        <p className="text-lg text-muted-foreground mb-6 max-w-lg">
+        <p className="text-lg text-muted-foreground mb-6 max-w-lg hover:text-foreground transition-colors duration-500">
           Estou sempre aberta a novos projetos, parcerias e conexões criativas.
         </p>
+        <motion.button
+          className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/80 transition-all duration-300"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Entre em contato
+        </motion.button>
       </motion.div>
     </section>
   );

@@ -30,7 +30,7 @@ const projects = [
   },
   {
     title: 'E-commerce',
-    description: 'UI',
+    description: 'UX - UI',
     link: 'https://www.figma.com/proto/XNIvlsu2557LMc5GzDM9ab/E-commerce-Website?node-id=20-2&p=f&t=0R3rEBr3He96DCNM-0&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=20%3A2&show-proto-sidebar=1',
     image: ecomerceCover,
   },
