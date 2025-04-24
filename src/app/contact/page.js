@@ -6,11 +6,41 @@ import { Mail, Send, Linkedin } from 'lucide-react';
 
 export default function ContactPage() {
   const [showModal, setShowModal] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setShowModal(true);
-    e.target.reset();
+    setIsSubmitting(true);
+    setError(null);
+    
+    const formData = new FormData(e.target);
+    const formObject = Object.fromEntries(formData);
+
+    try {
+      const res = await fetch('https://formspree.io/f/mdkgorla', {
+        method: 'POST',
+        body: JSON.stringify(formObject),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setShowModal(true);
+        e.target.reset();
+      } else {
+        setError(data.error || 'Erro ao enviar. Tente novamente.');
+      }
+    } catch (error) {
+      console.error('Erro ao enviar:', error);
+      setError('Erro na requisição. Verifique sua conexão.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -34,8 +64,10 @@ export default function ContactPage() {
           className="space-y-6"
         >
           <div>
-            <label className="block mb-2 text-sm font-medium">Nome</label>
+            <label htmlFor="name" className="block mb-2 text-sm font-medium">Nome</label>
             <input
+              id="name"
+              name="name"
               type="text"
               className="w-full rounded-lg bg-muted text-foreground px-4 py-3 outline-none border border-border focus:ring-2 focus:ring-primary"
               placeholder="Seu nome"
@@ -44,8 +76,10 @@ export default function ContactPage() {
           </div>
 
           <div>
-            <label className="block mb-2 text-sm font-medium">E-mail</label>
+            <label htmlFor="email" className="block mb-2 text-sm font-medium">E-mail</label>
             <input
+              id="email"
+              name="email"
               type="email"
               className="w-full rounded-lg bg-muted text-foreground px-4 py-3 outline-none border border-border focus:ring-2 focus:ring-primary"
               placeholder="seu@email.com"
@@ -54,8 +88,10 @@ export default function ContactPage() {
           </div>
 
           <div>
-            <label className="block mb-2 text-sm font-medium">Mensagem</label>
+            <label htmlFor="message" className="block mb-2 text-sm font-medium">Mensagem</label>
             <textarea
+              id="message"
+              name="message"
               rows="5"
               className="w-full rounded-lg bg-muted text-foreground px-4 py-3 outline-none border border-border focus:ring-2 focus:ring-primary"
               placeholder="Escreva sua mensagem..."
@@ -63,11 +99,24 @@ export default function ContactPage() {
             />
           </div>
 
+          {error && (
+            <div className="text-red-500 bg-red-50 p-3 rounded-lg">
+              {error}
+            </div>
+          )}
+
           <button
             type="submit"
-            className="btn-glow px-6 py-3 rounded-xl flex items-center gap-2 font-semibold transition hover:opacity-90"
+            disabled={isSubmitting}
+            className="btn-glow px-6 py-3 rounded-xl flex items-center gap-2 font-semibold transition hover:opacity-90 disabled:opacity-70"
           >
-            <Send size={18} /> Enviar mensagem
+            {isSubmitting ? (
+              <>Enviando...</>
+            ) : (
+              <>
+                <Send size={18} /> Enviar mensagem
+              </>
+            )}
           </button>
         </motion.form>
 

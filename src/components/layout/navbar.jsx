@@ -45,7 +45,7 @@ export default function Navbar() {
           href="/" 
           className="text-2xl font-bold gradient-text"
         >
-          UX Portfolio
+          Joane Alves
         </Link>
         
 

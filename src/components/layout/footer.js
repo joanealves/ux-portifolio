@@ -11,7 +11,7 @@ export default function Footer() {
     <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
       <div className="space-y-6">
         <Link href="/" className="inline-block">
-          <div className="text-2xl font-bold gradient-text">UX Portfolio</div>
+          <div className="text-2xl font-bold gradient-text">Joane Alves</div>
         </Link>
         <p className="text-muted-foreground leading-relaxed">
           Um portfólio interativo criado para demonstrar minhas habilidades em UX/UI Design,
