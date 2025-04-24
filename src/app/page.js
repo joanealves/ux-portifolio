@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import HeroSection from "@/components/home/hero-section"
 import CapaPortifolio from "../assets/capa_portifolio.png"
 import CapaTech from "../assets/capa_tech.png"
-import CapaImobiliaria from "../assets/capa_imobiliaria.png"
+import capaImobiliaria from '../assets/capaImobiliaria.png';
  
 const fadeInUp = (delay = 0) => ({
   hidden: { opacity: 0, y: 20 },
@@ -131,7 +131,7 @@ export default function Home() {
         target="_blank"
         rel="noopener noreferrer"
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        animate={{ opacity: 1, y: 0 }} 
         transition={{ duration: 0.5, delay: 0.1 }}
         className="group relative rounded-2xl overflow-hidden bg-gradient-to-br from-blue-950 to-gray-900/5 backdrop-blur-sm shadow-xl block cursor-pointer"
       >
