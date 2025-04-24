@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 
@@ -13,8 +13,9 @@ export default function FittsLawGame() {
   const [difficulty, setDifficulty] = useState("normal")
   const [countdown, setCountdown] = useState(null)
   const [showInfo, setShowInfo] = useState(false)
+  const gameAreaRef = useRef(null)
+  const [gameAreaDimensions, setGameAreaDimensions] = useState({ width: 600, height: 500 })
   
-  // Configurações de dificuldade
   const difficultySettings = {
     easy: { totalRounds: 5, sizes: [80, 60], countdownStart: 3 },
     normal: { totalRounds: 8, sizes: [80, 40], countdownStart: 2 },
@@ -23,60 +24,75 @@ export default function FittsLawGame() {
   
   const { totalRounds, sizes, countdownStart } = difficultySettings[difficulty]
 
-  // Gera um novo alvo com tamanho, posição e distância variados
+  useEffect(() => {
+    if (gameAreaRef.current && playing) {
+      const updateDimensions = () => {
+        const rect = gameAreaRef.current.getBoundingClientRect()
+        setGameAreaDimensions({
+          width: rect.width,
+          height: rect.height
+        })
+      }
+      
+      updateDimensions()
+      window.addEventListener('resize', updateDimensions)
+      
+      return () => window.removeEventListener('resize', updateDimensions)
+    }
+  }, [playing])
+
   const generateTarget = (prevTarget = null) => {
-    // Escolhe um tamanho aleatório do array de tamanhos para a dificuldade atual
     const sizeIndex = Math.floor(Math.random() * sizes.length)
     const size = sizes[sizeIndex]
     
-    // Define limites para garantir que o alvo esteja completamente dentro da área de jogo
-    const maxTop = 450 - size
-    const maxLeft = 600 - size
+    const padding = 20
+    const maxTop = gameAreaDimensions.height - size - padding * 2
+    const maxLeft = gameAreaDimensions.width - size - padding * 2
     
     let top, left
     
     if (prevTarget) {
-      // Garante uma distância mínima do alvo anterior
-      const minDistance = 100
-      const maxDistance = 400
+      const minDistance = Math.min(80, gameAreaDimensions.width * 0.15)
+      const maxDistance = Math.min(350, gameAreaDimensions.width * 0.7)
       
-      // Tenta algumas vezes para gerar uma posição válida
       let attempts = 0
       let validPosition = false
       
-      while (!validPosition && attempts < 10) {
-        // Gera nova posição
-        top = Math.floor(Math.random() * maxTop + 10)
-        left = Math.floor(Math.random() * maxLeft + 10)
+      while (!validPosition && attempts < 20) {
+        top = Math.floor(Math.random() * maxTop + padding)
+        left = Math.floor(Math.random() * maxLeft + padding)
         
-        // Calcula distância do alvo anterior
         const dx = left - prevTarget.left
         const dy = top - prevTarget.top
         const distance = Math.sqrt(dx * dx + dy * dy)
         
-        // Verifica se a distância está no intervalo desejado
         if (distance >= minDistance && distance <= maxDistance) {
-          validPosition = true
+          if (top >= padding && 
+              top + size <= gameAreaDimensions.height - padding &&
+              left >= padding && 
+              left + size <= gameAreaDimensions.width - padding) {
+            validPosition = true
+          }
         }
         
         attempts++
       }
       
-      // Se não conseguiu uma posição válida após várias tentativas, apenas usa valores aleatórios
       if (!validPosition) {
-        top = Math.floor(Math.random() * maxTop + 10)
-        left = Math.floor(Math.random() * maxLeft + 10)
+        top = Math.floor(Math.random() * (maxTop - 2 * padding) + padding * 2)
+        left = Math.floor(Math.random() * (maxLeft - 2 * padding) + padding * 2)
       }
     } else {
-      // Para o primeiro alvo, usa posição aleatória
-      top = Math.floor(Math.random() * maxTop + 10)
-      left = Math.floor(Math.random() * maxLeft + 10)
+      top = Math.floor((gameAreaDimensions.height - size) / 2)
+      left = Math.floor((gameAreaDimensions.width - size) / 2)
     }
+    
+    top = Math.max(padding, Math.min(gameAreaDimensions.height - size - padding, top))
+    left = Math.max(padding, Math.min(gameAreaDimensions.width - size - padding, left))
     
     return { size, top, left }
   }
 
-  // Inicia uma nova rodada
   const startRound = () => {
     const newTarget = generateTarget(target)
     setTarget(newTarget)
@@ -84,14 +100,12 @@ export default function FittsLawGame() {
     setRound(prev => prev + 1)
   }
 
-  // Processa o clique no alvo
   const handleClick = () => {
     if (!startTime) return
     
     const endTime = Date.now()
     const reactionTime = endTime - startTime
     
-    // Calcula a distância do alvo anterior (se existir)
     let distance = 0
     if (times.length > 0) {
       const prevTarget = times[times.length - 1].target
@@ -110,24 +124,20 @@ export default function FittsLawGame() {
     setTarget(null)
 
     if (round < totalRounds) {
-      // Pequena pausa antes da próxima rodada
       setTimeout(() => startRound(), 800)
     } else {
       setPlaying(false)
     }
   }
 
-  // Inicia o jogo com contagem regressiva
   const startGame = () => {
     setTimes([])
     setRound(0)
     setPlaying(true)
     
-    // Inicia contagem regressiva
     setCountdown(countdownStart)
   }
   
-  // Efeito para gerenciar a contagem regressiva
   useEffect(() => {
     if (countdown === null) return
     
@@ -137,28 +147,23 @@ export default function FittsLawGame() {
       }, 1000)
       return () => clearTimeout(timer)
     } else {
-      // Quando a contagem chega a zero, inicia a primeira rodada
       setCountdown(null)
       setTimeout(() => startRound(), 300)
     }
   }, [countdown])
 
-  // Calcula médias por tamanho de alvo
   const getAverageBySize = (size) => {
     const filtered = times.filter(t => t.size === size)
     if (filtered.length === 0) return 0
     return Math.round(filtered.reduce((acc, t) => acc + t.time, 0) / filtered.length)
   }
   
-  // Calcula o índice de dificuldade de Fitts para cada clique
   const calculateFittsIndex = () => {
     if (times.length <= 1) return []
     
     return times.slice(1).map((time, i) => {
       const distance = time.distance
       const size = time.size
-      // Fórmula do índice de dificuldade de Fitts: ID = log2(2D/W)
-      // Onde D é a distância e W é o tamanho do alvo
       const difficultyIndex = Math.log2(2 * distance / size).toFixed(2)
       return {
         round: i + 2,
@@ -170,12 +175,10 @@ export default function FittsLawGame() {
     })
   }
   
-  // Calcula o throughput (eficiência) médio
   const calculateAverageThroughput = () => {
     const fittsData = calculateFittsIndex()
     if (fittsData.length === 0) return 0
     
-    // Throughput = ID/tempo (em segundos)
     const throughputs = fittsData.map(data => {
       return parseFloat(data.difficultyIndex) / (data.time / 1000)
     })
@@ -313,8 +316,11 @@ export default function FittsLawGame() {
       )}
 
       {playing && (
-        <div className="relative w-full h-[500px] bg-gray-900 border border-gray-700 rounded-lg overflow-hidden">
-          <div className="absolute top-4 left-4 bg-gray-800/70 px-3 py-1 rounded-full text-xs text-gray-300">
+        <div 
+          ref={gameAreaRef}
+          className="relative w-full h-[500px] bg-gray-900 border border-gray-700 rounded-lg overflow-hidden"
+        >
+          <div className="absolute top-4 left-4 bg-gray-800/70 px-3 py-1.5 rounded-full text-xs text-gray-300 z-20">
             Rodada {round}/{totalRounds}
           </div>
           
@@ -336,7 +342,7 @@ export default function FittsLawGame() {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               onClick={handleClick}
-              className="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full absolute flex items-center justify-center text-white text-xs shadow-lg shadow-blue-500/20"
+              className="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full absolute flex items-center justify-center text-white text-xs shadow-lg shadow-blue-500/20 cursor-pointer"
               style={{
                 width: target.size,
                 height: target.size,
@@ -372,6 +378,13 @@ export default function FittsLawGame() {
                 ) + Math.PI/2}rad)`
               }}
             />
+          )}
+          
+          {target && (
+            <div className="absolute inset-0 border-2 border-transparent pointer-events-none">
+              <div className="absolute top-0 left-0 w-full h-full">
+              </div>
+            </div>
           )}
         </div>
       )}
