@@ -22,7 +22,7 @@ export default function AboutPage() {
               Na pandemia, tive minha primeira  experiência com UXUI, fiz alguns cursos e quando precisei criar um projeto que conectava Pcds ao mercado de tecnologia, me senti desafiada, a entender como a acessebilidade impacta tanto a vida das pessoas.
             </p>
             <p> Percebi que o UX é capaz de mudar a realidade dos usuários, aliado as tecnologias. 
-              Andando junto ao desenvolvimento, pode gerar uma mudança, nos habitos dos usuários e das empresas. Impactando o jeito que o mercado funciona, gerando assim "lucros" para os dois lados.
+              Andando junto ao desenvolvimento, pode gerar uma mudança, nos habitos dos usuários e das empresas. Impactando o jeito que o mercado funciona, gerando assim lucros para os dois lados.
             </p>
   
             <p>
