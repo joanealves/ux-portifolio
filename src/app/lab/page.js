@@ -87,6 +87,7 @@ export default function Lab() {
           Explore jogos interativos para testar e aprimorar suas habilidades em UX e usabilidade.
         </p>
         <p className="text-gray-300">O UX Lab é um local para você testar seus conhecimentos e para quem não conhece, ter a oportunidade de aprender enquanto se diverte.</p>
+        <p>Vamos começar?</p>
       </section>
 
       <div className="mb-16 max-w-xl mx-auto">
