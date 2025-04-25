@@ -58,13 +58,11 @@ export default function FontLegibilityGame() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {/* Fonte - Adicionando z-index para controlar a sobreposição */}
             <div className="relative">
               <label className="text-sm mb-1 block">Fonte</label>
               <Select onValueChange={setFontFamily} value={fontFamily}>
                 <SelectTrigger className="bg-gray-700 text-white border-gray-600">
                   <SelectValue placeholder="Escolha a fonte" />
-                  <ChevronDown className="h-4 w-4 opacity-50" />
                 </SelectTrigger>
                 <SelectContent position="popper" className="bg-gray-700 text-white border-gray-600 z-50">
                   <SelectItem value="Arial">Arial</SelectItem>
@@ -75,13 +73,11 @@ export default function FontLegibilityGame() {
               </Select>
             </div>
 
-            {/* Tamanho da Fonte */}
             <div className="relative">
               <label className="text-sm mb-1 block">Tamanho</label>
               <Select onValueChange={setFontSize} value={fontSize}>
                 <SelectTrigger className="bg-gray-700 text-white border-gray-600">
                   <SelectValue placeholder="Tamanho" />
-                  <ChevronDown className="h-4 w-4 opacity-50" />
                 </SelectTrigger>
                 <SelectContent position="popper" className="bg-gray-700 text-white border-gray-600 z-50">
                   <SelectItem value="14px">14px</SelectItem>
@@ -91,13 +87,11 @@ export default function FontLegibilityGame() {
               </Select>
             </div>
 
-            {/* Espaçamento */}
             <div className="relative">
               <label className="text-sm mb-1 block">Espaçamento de linha</label>
               <Select onValueChange={setLineHeight} value={lineHeight}>
                 <SelectTrigger className="bg-gray-700 text-white border-gray-600">
                   <SelectValue placeholder="Espaçamento" />
-                  <ChevronDown className="h-4 w-4 opacity-50" />
                 </SelectTrigger>
                 <SelectContent position="popper" className="bg-gray-700 text-white border-gray-600 z-50">
                   <SelectItem value="1.2">1.2</SelectItem>
