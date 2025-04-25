@@ -16,6 +16,7 @@ import ProximityGame from "@/components/lab/ProximityGame"
 import MemoryGame from "@/components/lab/MemoryGAme"
 import DragAndDropGame from "@/components/lab/DragAndDropGame"
 import ColorContrastGame from "@/components/lab/ColorContrsatGame"
+import FontLegibilityGame from "@/components/lab/FontLegibillityGame"
 
 const games = [
   {
@@ -66,6 +67,12 @@ const games = [
     title: "Color Contraste",
     description: "Escolher qual esquema de cor apresenta o melhor contraste com base na acessibilidade.",
     component: <ColorContrastGame />
+  },
+  {
+    id: "font-legibillity",
+    title: "Legibilidade das Fontes",
+    description: "O jogador deve ajustar a fonte, tamanho da fonte e espaçamento entre linhas para tornar o texto mais legível.",
+    component: <FontLegibilityGame />
   }
 
 ]
