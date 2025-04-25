@@ -95,6 +95,15 @@ export default function Lab() {
   return (
     <div className="w-full min-h-screen pt-24 px-4 sm:px-6 lg:px-8">
       <section className="max-w-6xl mx-auto text-center mb-16">
+      <div 
+        className="absolute top-1/4 -left-24 w-64 h-64 rounded-full opacity-50 blur-3xl"
+        style={{ backgroundColor: "hsl(252, 87%, 64%)" }} 
+      ></div>
+      <div 
+        className="absolute bottom-1/4 -right-24 w-96 h-96 rounded-full opacity-50 blur-3xl"
+        style={{ backgroundColor: "hsl(191, 97%, 77%)" }} 
+      ></div>
+
         <h1 className="text-4xl font-bold mb-4 text-transparent bg-clip-text gradient-text">UX Lab </h1> 
         <span className="text-4xl">🧪</span>
         <p className="text-gray-300 text-lg max-w-3xl mx-auto mb-6">

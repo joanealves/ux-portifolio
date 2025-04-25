@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
+import { X } from "lucide-react"
 
 export default function FittsLawGame() {
   const [playing, setPlaying] = useState(false)
@@ -16,6 +17,7 @@ export default function FittsLawGame() {
   const [isTooltipVisible, setIsTooltipVisible] = useState(false)
   const gameAreaRef = useRef(null)
   const resultsRef = useRef(null)
+  const modalRef = useRef(null)
   const [gameAreaDimensions, setGameAreaDimensions] = useState({ width: 600, height: 500 })
   
   const difficultySettings = {
@@ -25,6 +27,40 @@ export default function FittsLawGame() {
   }
   
   const { totalRounds, sizes, countdownStart } = difficultySettings[difficulty]
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (showInfo && modalRef.current && !modalRef.current.contains(event.target)) {
+        setShowInfo(false)
+      }
+    }
+    
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [showInfo])
+
+  useEffect(() => {
+    function handleEscKey(event) {
+      if (event.key === "Escape" && showInfo) {
+        setShowInfo(false)
+      }
+    }
+    
+    document.addEventListener("keydown", handleEscKey)
+    return () => document.removeEventListener("keydown", handleEscKey)
+  }, [showInfo])
+
+  useEffect(() => {
+    if (showInfo) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = "auto"
+    }
+    
+    return () => {
+      document.body.style.overflow = "auto"
+    }
+  }, [showInfo])
 
   useEffect(() => {
     if (gameAreaRef.current && playing) {
@@ -43,7 +79,6 @@ export default function FittsLawGame() {
     }
   }, [playing])
 
-  // Scroll para os resultados quando o jogo termina
   useEffect(() => {
     if (!playing && times.length > 0 && resultsRef.current) {
       setTimeout(() => {
@@ -205,7 +240,7 @@ export default function FittsLawGame() {
   }
 
   return (
-    <div className="relative w-full max-w-xl bg-gray-800 border border-gray-700 rounded-xl p-4 mx-auto shadow-lg overflow-hidden">
+    <div className="relative w-full max-w-xl mx-auto bg-gray-800 border border-gray-700 rounded-xl p-4 shadow-lg">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">
           Fitts' Law Challenge
@@ -215,7 +250,7 @@ export default function FittsLawGame() {
             onClick={() => setShowInfo(!showInfo)}
             onMouseEnter={() => setIsTooltipVisible(true)}
             onMouseLeave={() => setIsTooltipVisible(false)}
-            className="flex items-center justify-center w-6 h-6 text-sm bg-gray-700 text-gray-300 rounded-full hover:bg-gray-600 hover:text-gray-200 transition-colors cursor-pointer"
+            className="flex items-center justify-center w-8 h-8 text-sm bg-gray-700 text-gray-300 rounded-full hover:bg-gray-600 hover:text-gray-200 transition-colors cursor-pointer"
             aria-label="Mostrar informações"
           >
             ℹ️
@@ -230,19 +265,47 @@ export default function FittsLawGame() {
       </div>
       
       {showInfo && (
-        <div className="bg-gray-700/70 p-3 rounded-lg mb-4 text-sm text-gray-200">
-          <div className="flex justify-between items-start">
-            <p>A Lei de Fitts é um modelo do movimento humano que prediz o tempo necessário para mover-se rapidamente a um alvo, com base na distância até o alvo e seu tamanho.</p>
-            <button 
-              onClick={() => setShowInfo(false)} 
-              className="ml-2 text-gray-400 hover:text-white"
-            >
-              ✕
-            </button>
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50">
+          <div 
+            ref={modalRef}
+            className="bg-gray-800 rounded-lg max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-xl"
+          >
+            <div className="sticky top-0 bg-gray-800 flex justify-between items-center p-4 border-b border-gray-700">
+              <h3 className="font-medium text-lg text-gray-100">Sobre a Lei de Fitts</h3>
+              <button 
+                onClick={() => setShowInfo(false)}
+                className="p-2 hover:bg-gray-700 rounded-full transition-colors"
+                aria-label="Fechar"
+              >
+                <X size={20} className="text-gray-400 hover:text-white" />
+              </button>
+            </div>
+            <div className="p-4 space-y-3 text-gray-200">
+              <p>A Lei de Fitts é um modelo do movimento humano que prediz o tempo necessário para mover-se rapidamente a um alvo, com base na distância até o alvo e seu tamanho.</p>
+              <p>Quanto maior o alvo e menor a distância, mais fácil (rápido) será acertá-lo.</p>
+              <p>Índice de Dificuldade = log₂(2D/W), onde D é a distância e W é o tamanho do alvo.</p>
+              <p>Throughput mede sua eficiência (Índice de Dificuldade / Tempo).</p>
+              <h4 className="font-medium text-gray-100 mt-4">Aplicações da Lei de Fitts</h4>
+              <p>Este princípio é fundamental no design de interfaces e experiência do usuário:</p>
+              <ul className="list-disc pl-5 space-y-1">
+                <li>Botões maiores são mais fáceis de clicar</li>
+                <li>Menus mais próximos são mais acessíveis</li>
+                <li>Cantos e bordas da tela têm "tamanho infinito" para o cursor</li>
+                <li>É mais fácil selecionar itens em listas quando há espaçamento adequado</li>
+              </ul>
+              <div className="pt-3 mt-4 border-t border-gray-700">
+                <p className="text-sm text-gray-400">Teste sua velocidade de reação com diferentes tamanhos e distâncias para ver a Lei de Fitts em ação!</p>
+              </div>
+            </div>
+            <div className="sticky bottom-0 bg-gray-800 p-4 border-t border-gray-700">
+              <Button 
+                onClick={() => setShowInfo(false)}
+                className="w-full bg-blue-600 hover:bg-blue-700"
+              >
+                Fechar
+              </Button>
+            </div>
           </div>
-          <p className="mt-2">Quanto maior o alvo e menor a distância, mais fácil (rápido) será acertá-lo.</p>
-          <p className="mt-2">Índice de Dificuldade = log₂(2D/W), onde D é a distância e W é o tamanho do alvo.</p>
-          <p className="mt-2">Throughput mede sua eficiência (Índice de Dificuldade / Tempo).</p>
         </div>
       )}
 
@@ -278,7 +341,7 @@ export default function FittsLawGame() {
           
           <Button 
             onClick={startGame} 
-            className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700"
+            className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-bold px-8 py-3 rounded-lg text-lg shadow-md"
           >
             Iniciar
           </Button>
@@ -308,7 +371,7 @@ export default function FittsLawGame() {
                 ))}
               </div>
               
-              <div className="mt-4 bg-gray-700/30 p-4 rounded-lg overflow-x-auto">
+              <div className="mt-4 bg-gray-700/30 p-4 rounded-lg">
                 <div className="flex flex-col sm:flex-row justify-between gap-2 mb-4">
                   <p className="text-gray-300 text-sm">
                     Tempo médio: <span className="text-white font-bold">
@@ -429,11 +492,18 @@ export default function FittsLawGame() {
             />
           )}
           
-          {target && (
-            <div className="absolute inset-0 border-2 border-transparent pointer-events-none">
-              <div className="absolute top-0 left-0 w-full h-full">
-              </div>
-            </div>
+          {playing && (
+            <button 
+              onClick={() => {
+                if (window.confirm("Deseja realmente sair do jogo?")) {
+                  resetGame()
+                }
+              }}
+              className="absolute top-4 right-4 bg-gray-800/70 hover:bg-gray-700 p-2 rounded-full text-gray-400 hover:text-white transition-colors z-20"
+              aria-label="Sair do jogo"
+            >
+              <X size={18} />
+            </button>
           )}
         </div>
       )}

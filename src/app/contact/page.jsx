@@ -45,6 +45,15 @@ export default function ContactPage() {
 
   return (
     <section className="min-h-screen bg-background text-foreground px-6 md:px-24 py-24 flex items-center">
+      <div 
+        className="absolute top-1/4 -left-24 w-64 h-64 rounded-full opacity-50 blur-3xl"
+        style={{ backgroundColor: "hsl(252, 87%, 64%)" }} 
+      ></div>
+      <div 
+        className="absolute bottom-1/4 -right-24 w-96 h-96 rounded-full opacity-50 blur-3xl"
+        style={{ backgroundColor: "hsl(191, 97%, 77%)" }} 
+      ></div>
+
       <div className="w-full max-w-3xl mx-auto space-y-12">
         <div>
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
@@ -55,7 +64,6 @@ export default function ContactPage() {
           </p>
         </div>
 
-        {/* Formulário */}
         <motion.form
           onSubmit={handleSubmit}
           initial={{ opacity: 0, y: 20 }}

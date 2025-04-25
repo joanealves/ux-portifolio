@@ -1,10 +1,41 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { CheckCircle, XCircle, RefreshCw, HelpCircle, Trophy } from "lucide-react"
+import { 
+  CheckCircle, XCircle, RefreshCw, HelpCircle, Trophy, 
+  Clock, PauseCircle, PlayCircle, Settings, Info, Volume2, VolumeX,
+  ExternalLink, BarChart, BookOpen
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { shuffle } from "@/lib/utils"
+import { 
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 
 const nielsenHeuristics = [
   {
@@ -113,6 +144,7 @@ export default function NielsenGame() {
   const [currentQuestion, setCurrentQuestion] = useState(null)
   const [options, setOptions] = useState([])
   const [score, setScore] = useState(0)
+  const [streak, setStreak] = useState(0)
   const [totalQuestions, setTotalQuestions] = useState(0)
   const [feedback, setFeedback] = useState(null)
   const [gameActive, setGameActive] = useState(true)
@@ -120,45 +152,105 @@ export default function NielsenGame() {
   const [gameCompleted, setGameCompleted] = useState(false)
   const [countdown, setCountdown] = useState(15)
   const [timerActive, setTimerActive] = useState(false)
+  const [isPaused, setIsPaused] = useState(false)
+  const [difficulty, setDifficulty] = useState("normal") 
+  const [soundEnabled, setSoundEnabled] = useState(true)
+  const [heuristicStats, setHeuristicStats] = useState({})
+  const [activeTab, setActiveTab] = useState("play")
+  
+  const correctSoundRef = useRef(null)
+  const wrongSoundRef = useRef(null)
+  const timeoutSoundRef = useRef(null)
+  
+  const getTimeForDifficulty = () => {
+    switch (difficulty) {
+      case "easy": return 30
+      case "hard": return 10
+      default: return 15
+    }
+  }
   
   const initGame = () => {
     setScore(0)
+    setStreak(0)
     setTotalQuestions(0)
     setFeedback(null)
     setGameActive(true)
     setShowExplanation(false)
     setGameCompleted(false)
-    setCountdown(15)
+    setCountdown(getTimeForDifficulty())
+    setHeuristicStats({})
     generateQuestion()
   }
   
-  // Efeito para controlar o timer
   useEffect(() => {
-    let timer = null;
+    if (typeof window !== "undefined") {
+      correctSoundRef.current = new Audio("/sounds/correct.mp3") 
+      wrongSoundRef.current = new Audio("/sounds/wrong.mp3")
+      timeoutSoundRef.current = new Audio("/sounds/timeout.mp3")
+    }
+  }, [])
+  
+  const playSound = (type) => {
+    if (!soundEnabled) return
     
-    if (timerActive && countdown > 0) {
+    switch (type) {
+      case "correct":
+        correctSoundRef.current?.play()
+        break
+      case "wrong":
+        wrongSoundRef.current?.play()
+        break
+      case "timeout":
+        timeoutSoundRef.current?.play()
+        break
+    }
+  }
+  
+  useEffect(() => {
+    let timer = null
+    
+    if (timerActive && countdown > 0 && !isPaused) {
       timer = setTimeout(() => {
-        setCountdown(countdown - 1);
-      }, 1000);
+        setCountdown(countdown - 1)
+      }, 1000)
     } else if (countdown === 0 && timerActive) {
-      handleTimeout();
+      handleTimeout()
     }
     
     return () => {
-      if (timer) clearTimeout(timer);
-    };
-  }, [countdown, timerActive]);
+      if (timer) clearTimeout(timer)
+    }
+  }, [countdown, timerActive, isPaused])
   
-  // Lidar com o tempo esgotado
   const handleTimeout = () => {
-    setTimerActive(false);
+    setTimerActive(false)
+    playSound("timeout")
+    
+    updateHeuristicStat(currentQuestion.heuristicId, false)
+    
     setFeedback({
       correct: false,
       message: "Tempo esgotado! A resposta correta era: " + currentQuestion.correctTitle,
       timeOut: true
-    });
-    setTotalQuestions(prev => prev + 1);
-  };
+    })
+    setTotalQuestions(prev => prev + 1)
+    setStreak(0) // Resetar streak
+  }
+  
+  // Atualizar estatísticas de heurísticas
+  const updateHeuristicStat = (heuristicId, isCorrect) => {
+    setHeuristicStats(prev => {
+      const current = prev[heuristicId] || { correct: 0, total: 0 }
+      return {
+        ...prev,
+        [heuristicId]: {
+          correct: current.correct + (isCorrect ? 1 : 0),
+          total: current.total + 1
+        }
+      }
+    })
+  }
   
   const generateQuestion = () => {
     const heuristics = [...nielsenHeuristics]
@@ -188,7 +280,8 @@ export default function NielsenGame() {
     })
     setOptions(allOptions)
     
-    setCountdown(15)
+    setCountdown(getTimeForDifficulty())
+    setIsPaused(false)
     setTimerActive(true)
   }
   
@@ -196,13 +289,23 @@ export default function NielsenGame() {
     setTimerActive(false)
     setTotalQuestions(prev => prev + 1)
     
+    updateHeuristicStat(currentQuestion.heuristicId, option.correct)
+    
     if (option.correct) {
+      playSound("correct")
+      
       setScore(prev => prev + 1)
+      setStreak(prev => prev + 1)
+      
       setFeedback({
         correct: true,
         message: "Correto! Esta é a heurística correta."
       })
     } else {
+      playSound("wrong")
+      
+      setStreak(0)
+      
       setFeedback({
         correct: false,
         message: `Incorreto. A resposta correta é: ${currentQuestion.correctTitle}`
@@ -221,19 +324,133 @@ export default function NielsenGame() {
     }
   }
   
+  const togglePause = () => {
+    setIsPaused(prev => !prev)
+  }
+  
+  const toggleSound = () => {
+    setSoundEnabled(prev => !prev)
+  }
+  
+  const changeDifficulty = (value) => {
+    setDifficulty(value)
+  }
+  
+  const renderCircularTimer = () => {
+    const radius = 18
+    const circumference = 2 * Math.PI * radius
+    const strokeDashoffset = circumference * (1 - countdown / getTimeForDifficulty())
+    
+    const getTimerColor = () => {
+      const percentRemaining = countdown / getTimeForDifficulty()
+      if (percentRemaining > 0.6) return "stroke-emerald-500"
+      if (percentRemaining > 0.3) return "stroke-amber-500"
+      return "stroke-red-500"
+    }
+    
+    return (
+      <div className="relative w-12 h-12 flex items-center justify-center">
+        <svg className="w-12 h-12 transform -rotate-90">
+          <circle
+            cx="24"
+            cy="24"
+            r={radius}
+            fill="transparent"
+            stroke="currentColor"
+            strokeWidth="4"
+            className="text-dark-300"
+          />
+          <circle
+            cx="24"
+            cy="24"
+            r={radius}
+            fill="transparent"
+            stroke="currentColor"
+            strokeWidth="4"
+            strokeDasharray={circumference}
+            strokeDashoffset={strokeDashoffset}
+            className={getTimerColor()}
+            strokeLinecap="round"
+          />
+        </svg>
+        <span className="absolute text-sm font-medium">{countdown}</span>
+      </div>
+    )
+  }
+  
   const renderProgressBar = () => {
     const progress = (totalQuestions / 10) * 100
     return (
-      <div className="w-full bg-dark-200 h-2 rounded-full mt-4 mb-8">
+      <div className="w-full bg-dark-200 h-2 rounded-full mt-4 mb-2">
         <div 
-          className="bg-primary h-2 rounded-full" 
+          className="bg-primary h-2 rounded-full transition-all"
           style={{ width: `${progress}%` }}
         ></div>
       </div>
     )
   }
   
+  const renderGameControls = () => {
+    return (
+      <div className="flex justify-between items-center mb-6">
+        <div className="flex items-center gap-3">
+          <span className="text-sm font-medium">Questão {totalQuestions + 1}/10</span>
+          <span className="text-sm text-muted-foreground">•</span>
+          <div className="flex items-center gap-1">
+            <span className="text-sm font-medium">{score}</span>
+            <span className="text-sm text-muted-foreground">pontos</span>
+          </div>
+        </div>
+        
+        <div className="flex items-center gap-4">
+          {streak > 1 && (
+            <motion.div 
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className="px-2 py-1 bg-primary/20 rounded-md text-primary text-xs font-medium"
+            >
+              {streak} acertos seguidos!
+            </motion.div>
+          )}
+          
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={toggleSound}
+            className="text-muted-foreground"
+          >
+            {soundEnabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
+          </Button>
+          
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={togglePause}
+            className="text-muted-foreground"
+          >
+            {isPaused ? <PlayCircle className="h-4 w-4" /> : <PauseCircle className="h-4 w-4" />}
+          </Button>
+          
+          {renderCircularTimer()}
+        </div>
+      </div>
+    )
+  }
+  
   const renderResult = () => {
+    const heuristicsPerformance = Object.entries(heuristicStats).map(([id, stats]) => {
+      const heuristic = nielsenHeuristics.find(h => h.id === parseInt(id))
+      return {
+        id: parseInt(id),
+        title: heuristic.title,
+        correct: stats.correct,
+        total: stats.total,
+        percentage: Math.round((stats.correct / stats.total) * 100)
+      }
+    }).sort((a, b) => a.percentage - b.percentage)
+    
+    const weakestHeuristics = heuristicsPerformance.filter(h => h.percentage < 50)
+    
     let message = ""
     let icon = null
     
@@ -257,10 +474,99 @@ export default function NielsenGame() {
         {icon}
         <h3 className="text-2xl font-bold mb-2">Resultado: {score}/10</h3>
         <p className="text-muted-foreground mb-6">{message}</p>
-        <Button onClick={initGame} className="gap-2">
-          <RefreshCw className="h-4 w-4" />
-          Jogar Novamente
-        </Button>
+        
+        <div className="mb-6 text-left">
+          <h4 className="font-medium mb-2 flex items-center gap-2">
+            <BarChart className="h-4 w-4" />
+            Estatísticas de desempenho
+          </h4>
+          <div className="p-4 bg-dark-200 rounded-lg mb-4">
+            {weakestHeuristics.length > 0 ? (
+              <>
+                <p className="text-sm mb-3">Heurísticas para revisar:</p>
+                <ul className="space-y-2">
+                  {weakestHeuristics.map(h => (
+                    <li key={h.id} className="text-sm flex justify-between">
+                      <span>{h.title}</span>
+                      <span className="text-red-400">{h.percentage}% de acerto</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <p className="text-sm">Você teve um bom desempenho em todas as heurísticas!</p>
+            )}
+          </div>
+        </div>
+        
+        <div className="flex gap-3 justify-center">
+          <Button onClick={initGame} variant="default" className="gap-2">
+            <RefreshCw className="h-4 w-4" />
+            Jogar Novamente
+          </Button>
+          
+          <Button 
+            variant="outline" 
+            className="gap-2"
+            onClick={() => setActiveTab("study")}
+          >
+            <BookOpen className="h-4 w-4" />
+            Modo Estudo
+          </Button>
+        </div>
+      </motion.div>
+    )
+  }
+  
+  const renderStudyMode = () => {
+    return (
+      <div className="space-y-6 py-4">
+        <div className="flex justify-between items-center">
+          <h3 className="text-xl font-bold">Modo Estudo: Heurísticas de Nielsen</h3>
+          <Button 
+            onClick={() => setActiveTab("play")} 
+            variant="outline"
+            className="gap-2"
+          >
+            <RefreshCw className="h-4 w-4" />
+            Voltar ao Jogo
+          </Button>
+        </div>
+        
+        <div className="space-y-4">
+          {nielsenHeuristics.map((heuristic) => (
+            <div key={heuristic.id} className="p-4 bg-dark-100 rounded-lg border border-border">
+              <h4 className="font-medium text-lg mb-2">{heuristic.id}. {heuristic.title}</h4>
+              <p className="text-muted-foreground mb-3">{heuristic.description}</p>
+              
+              <div className="mt-3">
+                <p className="text-sm font-medium mb-2">Exemplos:</p>
+                <ul className="list-disc pl-5 space-y-1">
+                  {heuristic.examples.map((example, i) => (
+                    <li key={i} className="text-sm text-muted-foreground">{example}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+  
+  const renderContextualHint = () => {
+    if (countdown > 7 || feedback) return null
+    
+    return (
+      <motion.div 
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mb-3 flex items-center gap-2 text-sm text-amber-400"
+      >
+        <Info className="h-4 w-4" />
+        <span>
+          Dica: Pense sobre como o exemplo demonstra feedback, controle, padrões ou outro princípio de design.
+        </span>
       </motion.div>
     )
   }
@@ -273,106 +579,209 @@ export default function NielsenGame() {
     }
   }, [])
 
-  if (!currentQuestion && !gameCompleted) return null
+  if (!currentQuestion && !gameCompleted && activeTab === "play") return null
   
   return (
     <div className="max-w-3xl mx-auto">
-      {!gameCompleted ? (
-        <>
-          {renderProgressBar()}
+      <Tabs defaultValue="play" value={activeTab} onValueChange={setActiveTab}>
+        <div className="flex justify-between items-center mb-6">
+          <TabsList>
+            <TabsTrigger value="play" className="gap-2">
+              <RefreshCw className="h-4 w-4" />
+              Jogar
+            </TabsTrigger>
+            <TabsTrigger value="study" className="gap-2">
+              <BookOpen className="h-4 w-4" />
+              Estudar
+            </TabsTrigger>
+          </TabsList>
           
-          <div className="mb-6">
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-sm text-muted-foreground">Questão {totalQuestions + 1}/10</span>
-              <div className="flex items-center gap-2">
-                <div className={`h-6 w-6 rounded-full flex items-center justify-center text-xs ${
-                  countdown <= 5 ? "bg-red-500/20 text-red-400" : "bg-primary/20 text-primary"
-                }`}>
-                  {countdown}
-                </div>
-                <span className="text-sm text-muted-foreground">seg</span>
-              </div>
+          {activeTab === "play" && gameActive && !gameCompleted && (
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-muted-foreground">Dificuldade:</span>
+              <Select value={difficulty} onValueChange={changeDifficulty}>
+                <SelectTrigger className="w-28 h-8">
+                  <SelectValue placeholder="Normal" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="easy">Fácil (30s)</SelectItem>
+                  <SelectItem value="normal">Normal (15s)</SelectItem>
+                  <SelectItem value="hard">Difícil (10s)</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
-            
-            <div className="p-6 bg-dark-100 rounded-xl mb-6">
-              <h3 className="text-lg font-medium mb-4">A qual heurística de Nielsen este exemplo se refere?</h3>
-              <div className="p-4 bg-dark-200 rounded-lg border border-border">
-                <p className="italic">"{currentQuestion.example}"</p>
-              </div>
-            </div>
-            
-            <AnimatePresence mode="wait">
-              {!feedback ? (
-                <motion.div 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="grid grid-cols-1 gap-3"
-                >
-                  {options.map((option) => (
-                    <Button
-                      key={option.id}
-                      variant="outline"
-                      className="justify-start h-auto py-3 text-left hover:bg-dark-200"
-                      onClick={() => checkAnswer(option)}
-                    >
-                      {option.title}
-                    </Button>
-                  ))}
-                </motion.div>
-              ) : (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={`p-6 rounded-xl ${feedback.correct ? "bg-emerald-500/20 border border-emerald-500/30" : "bg-red-500/20 border border-red-500/30"}`}
-                >
-                  <div className="flex items-start gap-3">
-                    {feedback.correct ? (
-                      <CheckCircle className="h-6 w-6 text-emerald-500 shrink-0 mt-0.5" />
-                    ) : (
-                      <XCircle className="h-6 w-6 text-red-500 shrink-0 mt-0.5" />
-                    )}
-                    <div>
-                      <h4 className="font-medium mb-2">
-                        {feedback.message}
-                      </h4>
-                      
-                      {!showExplanation ? (
-                        <Button 
-                          variant="ghost" 
-                          size="sm" 
-                          onClick={() => setShowExplanation(true)} 
-                          className="gap-2 text-muted-foreground"
-                        >
-                          <HelpCircle className="h-4 w-4" />
-                          Ver explicação
-                        </Button>
-                      ) : (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: "auto" }}
-                        >
-                          <p className="text-sm mt-2 mb-3">
-                            {currentQuestion.description}
-                          </p>
-                        </motion.div>
-                      )}
+          )}
+        </div>
+        
+        <TabsContent value="play" className="mt-0">
+          {!gameCompleted ? (
+            <>
+              {renderProgressBar()}
+              {renderGameControls()}
+              
+              <AnimatePresence>
+                {isPaused && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    className="absolute inset-0 flex items-center justify-center bg-black/50 z-10"
+                  >
+                    <div className="bg-dark-100 p-8 rounded-xl text-center space-y-4">
+                      <h3 className="text-lg font-medium">Jogo pausado</h3>
+                      <Button onClick={togglePause} className="gap-2">
+                        <PlayCircle className="h-4 w-4" />
+                        Continuar
+                      </Button>
                     </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              
+              <div className="mb-6">
+                <div className="p-6 bg-dark-100 rounded-xl mb-6">
+                  <h3 className="text-lg font-medium mb-4">A qual heurística de Nielsen este exemplo se refere?</h3>
+                  <div className="p-4 bg-dark-200 rounded-lg border border-border">
+                    <p className="italic">"{currentQuestion.example}"</p>
                   </div>
-                  
-                  <div className="flex justify-end mt-4">
-                    <Button onClick={handleNext}>
-                      {totalQuestions >= 10 ? "Ver resultado" : "Próxima questão"}
-                    </Button>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div> 
-        </>
-      ) : (
-        renderResult()
-      )}
+                </div>
+                
+                {renderContextualHint()}
+                
+                <AnimatePresence mode="wait">
+                  {!feedback ? (
+                    <motion.div 
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="grid grid-cols-1 gap-3"
+                    >
+                      {options.map((option) => (
+                        <motion.div
+                          key={option.id}
+                          whileHover={{ scale: 1.01 }}
+                          whileTap={{ scale: 0.99 }}
+                        >
+                          <Button
+                            variant="outline"
+                            className="justify-start h-auto py-4 text-left hover:bg-dark-200 w-full"
+                            onClick={() => checkAnswer(option)}
+                          >
+                            {option.title}
+                          </Button>
+                        </motion.div>
+                      ))}
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className={`p-6 rounded-xl ${feedback.correct ? "bg-emerald-500/20 border border-emerald-500/30" : "bg-red-500/20 border border-red-500/30"}`}
+                    >
+                      <div className="flex items-start gap-3">
+                        {feedback.correct ? (
+                          <CheckCircle className="h-6 w-6 text-emerald-500 shrink-0 mt-0.5" />
+                        ) : (
+                          <XCircle className="h-6 w-6 text-red-500 shrink-0 mt-0.5" />
+                        )}
+                        <div className="flex-1">
+                          <h4 className="font-medium mb-2">
+                            {feedback.message}
+                          </h4>
+                          
+                          {!showExplanation ? (
+                            <Button 
+                              variant="ghost" 
+                              size="sm" 
+                              onClick={() => setShowExplanation(true)} 
+                              className="gap-2 text-muted-foreground"
+                            >
+                              <HelpCircle className="h-4 w-4" />
+                              Ver explicação
+                            </Button>
+                          ) : (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: "auto" }}
+                            >
+                              <div className="p-3 bg-dark-200 rounded-lg mt-2 mb-3">
+                                <p className="text-sm">
+                                  {currentQuestion.description}
+                                </p>
+                                <div className="mt-3 pt-3 border-t border-border">
+                                  <Dialog>
+                                    <DialogTrigger asChild>
+                                      <Button variant="link" size="sm" className="gap-1 p-0 h-auto">
+                                        <ExternalLink className="h-3 w-3" />
+                                        <span className="text-xs">Saiba mais sobre esta heurística</span>
+                                      </Button>
+                                    </DialogTrigger>
+                                    <DialogContent>
+                                      <DialogHeader>
+                                        <DialogTitle>
+                                          {currentQuestion.correctTitle}
+                                        </DialogTitle>
+                                        <DialogDescription>
+                                          Entenda mais sobre esta heurística de Nielsen
+                                        </DialogDescription>
+                                      </DialogHeader>
+                                      <div className="space-y-4 py-4">
+                                        <p>{currentQuestion.description}</p>
+                                        <div>
+                                          <h4 className="font-medium mb-2">Exemplos:</h4>
+                                          <ul className="list-disc pl-5 space-y-1">
+                                            {nielsenHeuristics
+                                              .find(h => h.title === currentQuestion.correctTitle)
+                                              .examples.map((ex, i) => (
+                                                <li key={i}>{ex}</li>
+                                              ))}
+                                          </ul>
+                                        </div>
+                                        <div>
+                                          <h4 className="font-medium mb-2">Como aplicar:</h4>
+                                          <p className="text-sm text-muted-foreground">
+                                            Ao projetar interfaces, certifique-se de implementar esta heurística
+                                            para melhorar a experiência do usuário e evitar problemas de usabilidade.
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </DialogContent>
+                                  </Dialog>
+                                </div>
+                              </div>
+                            </motion.div>
+                          )}
+                        </div>
+                      </div>
+                      
+                      <div className="flex justify-end mt-4">
+                        <Button onClick={handleNext} className="gap-2">
+                          {totalQuestions >= 10 ? (
+                            <>
+                              <Trophy className="h-4 w-4" />
+                              Ver resultado
+                            </>
+                          ) : (
+                            <>
+                              Próxima questão
+                            </>
+                          )}
+                        </Button>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div> 
+            </>
+          ) : (
+            renderResult()
+          )}
+        </TabsContent>
+        
+        <TabsContent value="study" className="mt-0">
+          {renderStudyMode()}
+        </TabsContent>
+      </Tabs>
     </div>
   )
 }
