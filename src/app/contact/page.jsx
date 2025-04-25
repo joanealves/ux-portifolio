@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Send, Linkedin } from 'lucide-react';
+import { Mail, Send, Linkedin,   } from 'lucide-react';
 
 export default function ContactPage() {
   const [showModal, setShowModal] = useState(false);

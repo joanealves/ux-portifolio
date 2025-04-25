@@ -15,6 +15,7 @@ import HicksLawGame from "@/components/lab/HicksLawGame"
 import ProximityGame from "@/components/lab/ProximityGame"
 import MemoryGame from "@/components/lab/MemoryGAme"
 import DragAndDropGame from "@/components/lab/DragAndDropGame"
+import ColorContrastGame from "@/components/lab/ColorContrsatGame"
 
 const games = [
   {
@@ -59,10 +60,15 @@ const games = [
     title: "Drag and Drop Challenge",
     description: "Arraste os itens para os grupos corretos.",
     component: <DragAndDropGame />
+  },
+  {
+    id: "color-contrast",
+    title: "Color Contraste",
+    description: "Escolher qual esquema de cor apresenta o melhor contraste com base na acessibilidade.",
+    component: <ColorContrastGame />
   }
+
 ]
-
-
 
 export default function Lab() {
   const [activeGame, setActiveGame] = useState(null)
@@ -80,9 +86,10 @@ export default function Lab() {
   const selectedGame = games.find(game => game.id === activeGame)
 
   return (
-    <div className="w-full min-h-screen pt-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-900 to-gray-950 text-gray-100">
+    <div className="w-full min-h-screen pt-24 px-4 sm:px-6 lg:px-8">
       <section className="max-w-6xl mx-auto text-center mb-16">
-        <h1 className="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">UX Lab 🧪</h1>
+        <h1 className="text-4xl font-bold mb-4 text-transparent bg-clip-text gradient-text">UX Lab </h1> 
+        <span className="text-4xl">🧪</span>
         <p className="text-gray-300 text-lg max-w-3xl mx-auto mb-6">
           Explore jogos interativos para testar e aprimorar suas habilidades em UX e usabilidade.
         </p>

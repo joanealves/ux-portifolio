@@ -120,6 +120,14 @@ export default function UXProcessPage() {
 
   return (
     <section className="snap-y snap-mandatory h-screen overflow-y-scroll bg-background text-foreground">
+      <div 
+        className="absolute top-1/4 -left-24 w-64 h-64 rounded-full opacity-50 blur-3xl"
+        style={{ backgroundColor: "hsl(252, 87%, 64%)" }} 
+      ></div>
+      <div 
+        className="absolute bottom-1/4 -right-24 w-96 h-96 rounded-full opacity-50 blur-3xl"
+        style={{ backgroundColor: "hsl(191, 97%, 77%)" }} 
+      ></div>
       <div className="h-screen flex flex-col justify-center snap-start">
         <div className="mx-auto max-w-6xl px-6">
           <motion.h1 

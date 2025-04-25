@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { ArrowRight, Code, MousePointer2 } from "lucide-react"
+import { ArrowRight} from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export default function HeroSection() {
@@ -75,18 +75,7 @@ export default function HeroSection() {
             </div>
           </motion.div>
         </div>
-        <div className="text-center mt-24">
-            <p className="text-sm text-muted-foreground">Scroll para ver mais</p>
-            <div className="h-10 w-6 border-2 border-muted-foreground rounded-full mx-auto mt-2 relative">
-              <motion.div 
-                className="h-2 w-2 bg-primary rounded-full absolute top-1 left-1/2 transform -translate-x-1/2"
-                animate={{ y: [0, 12, 0] }}
-                transition={{ repeat: Infinity, duration: 1.5 }}
-              />
-            </div>
-          </div>
-        
-        
+       
       </div>
     </section>
   )

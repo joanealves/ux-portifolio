@@ -13,7 +13,9 @@ export default function FittsLawGame() {
   const [difficulty, setDifficulty] = useState("normal")
   const [countdown, setCountdown] = useState(null)
   const [showInfo, setShowInfo] = useState(false)
+  const [isTooltipVisible, setIsTooltipVisible] = useState(false)
   const gameAreaRef = useRef(null)
+  const resultsRef = useRef(null)
   const [gameAreaDimensions, setGameAreaDimensions] = useState({ width: 600, height: 500 })
   
   const difficultySettings = {
@@ -40,6 +42,15 @@ export default function FittsLawGame() {
       return () => window.removeEventListener('resize', updateDimensions)
     }
   }, [playing])
+
+  // Scroll para os resultados quando o jogo termina
+  useEffect(() => {
+    if (!playing && times.length > 0 && resultsRef.current) {
+      setTimeout(() => {
+        resultsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }, 100)
+    }
+  }, [playing, times.length])
 
   const generateTarget = (prevTarget = null) => {
     const sizeIndex = Math.floor(Math.random() * sizes.length)
@@ -138,6 +149,13 @@ export default function FittsLawGame() {
     setCountdown(countdownStart)
   }
   
+  const resetGame = () => {
+    setTimes([])
+    setPlaying(false)
+    setRound(0)
+    setTarget(null)
+  }
+  
   useEffect(() => {
     if (countdown === null) return
     
@@ -187,20 +205,41 @@ export default function FittsLawGame() {
   }
 
   return (
-    <div className="relative w-full max-w-xl bg-gray-800 border border-gray-700 rounded-xl p-4 mx-auto shadow-lg">
-      <h2 className="text-xl font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">
-        Fitts' Law Challenge
-        <button 
-          onClick={() => setShowInfo(!showInfo)}
-          className="ml-2 text-sm text-gray-400 hover:text-gray-200"
-        >
-          ℹ️
-        </button>
-      </h2>
+    <div className="relative w-full max-w-xl bg-gray-800 border border-gray-700 rounded-xl p-4 mx-auto shadow-lg overflow-hidden">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">
+          Fitts' Law Challenge
+        </h2>
+        <div className="relative">
+          <button 
+            onClick={() => setShowInfo(!showInfo)}
+            onMouseEnter={() => setIsTooltipVisible(true)}
+            onMouseLeave={() => setIsTooltipVisible(false)}
+            className="flex items-center justify-center w-6 h-6 text-sm bg-gray-700 text-gray-300 rounded-full hover:bg-gray-600 hover:text-gray-200 transition-colors cursor-pointer"
+            aria-label="Mostrar informações"
+          >
+            ℹ️
+          </button>
+          
+          {isTooltipVisible && (
+            <div className="absolute right-0 top-8 w-44 bg-gray-700 p-2 rounded-md text-xs text-gray-200 shadow-lg z-50">
+              Clique para mais informações sobre a Lei de Fitts
+            </div>
+          )}
+        </div>
+      </div>
       
       {showInfo && (
         <div className="bg-gray-700/70 p-3 rounded-lg mb-4 text-sm text-gray-200">
-          <p>A Lei de Fitts é um modelo do movimento humano que prediz o tempo necessário para mover-se rapidamente a um alvo, com base na distância até o alvo e seu tamanho.</p>
+          <div className="flex justify-between items-start">
+            <p>A Lei de Fitts é um modelo do movimento humano que prediz o tempo necessário para mover-se rapidamente a um alvo, com base na distância até o alvo e seu tamanho.</p>
+            <button 
+              onClick={() => setShowInfo(false)} 
+              className="ml-2 text-gray-400 hover:text-white"
+            >
+              ✕
+            </button>
+          </div>
           <p className="mt-2">Quanto maior o alvo e menor a distância, mais fácil (rápido) será acertá-lo.</p>
           <p className="mt-2">Índice de Dificuldade = log₂(2D/W), onde D é a distância e W é o tamanho do alvo.</p>
           <p className="mt-2">Throughput mede sua eficiência (Índice de Dificuldade / Tempo).</p>
@@ -213,7 +252,7 @@ export default function FittsLawGame() {
             Clique no alvo o mais rápido possível. Vamos medir seu tempo de reação baseado em diferentes tamanhos e distâncias.
           </p>
           
-          <div className="flex justify-center gap-2 mb-4">
+          <div className="flex flex-wrap justify-center gap-2 mb-4">
             <Button 
               onClick={() => setDifficulty("easy")}
               variant={difficulty === "easy" ? "default" : "outline"}
@@ -245,35 +284,45 @@ export default function FittsLawGame() {
           </Button>
           
           {times.length > 0 && (
-            <div className="mt-8 pt-6 border-t border-gray-700">
-              <h3 className="text-lg font-medium mb-4 text-gray-200">Resultados:</h3>
+            <div className="mt-8 pt-6 border-t border-gray-700" ref={resultsRef}>
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-lg font-medium text-gray-200">Resultados:</h3>
+                <Button 
+                  onClick={resetGame} 
+                  variant="outline" 
+                  size="sm" 
+                  className="text-gray-300 text-xs"
+                >
+                  Nova Partida
+                </Button>
+              </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-center mb-4">
                 {sizes.map(size => (
-                  <div key={size} className="bg-gray-700/50 p-4 rounded-lg">
-                    <p className="text-sm text-gray-300 mb-2">
+                  <div key={size} className="bg-gray-700/50 p-3 rounded-lg">
+                    <p className="text-sm text-gray-300 mb-1">
                       Alvos {size < 40 ? "pequenos" : size < 70 ? "médios" : "grandes"} ({size}px)
                     </p>
-                    <p className="text-2xl font-bold text-blue-400">{getAverageBySize(size)} ms</p>
+                    <p className="text-xl font-bold text-blue-400">{getAverageBySize(size)} ms</p>
                   </div>
                 ))}
               </div>
               
-              <div className="mt-6 bg-gray-700/30 p-4 rounded-lg">
-                <div className="flex justify-between items-center mb-4">
-                  <p className="text-gray-300">
+              <div className="mt-4 bg-gray-700/30 p-4 rounded-lg overflow-x-auto">
+                <div className="flex flex-col sm:flex-row justify-between gap-2 mb-4">
+                  <p className="text-gray-300 text-sm">
                     Tempo médio: <span className="text-white font-bold">
                       {Math.round(times.reduce((acc, t) => acc + t.time, 0) / times.length)} ms
                     </span>
                   </p>
-                  <p className="text-gray-300">
+                  <p className="text-gray-300 text-sm">
                     Throughput: <span className="text-white font-bold">
                       {calculateAverageThroughput()} bits/s
                     </span>
                   </p>
                 </div>
                 
-                <p className="text-gray-400 text-sm">
+                <p className="text-gray-400 text-sm mb-4">
                   A Lei de Fitts sugere que alvos maiores e mais próximos são mais fáceis e rápidos de acertar.
                   {getAverageBySize(sizes[sizes.length-1]) > getAverageBySize(sizes[0]) ? 
                     " Seus resultados confirmam isto!" : 
@@ -281,27 +330,27 @@ export default function FittsLawGame() {
                 </p>
                 
                 {times.length > 1 && (
-                  <div className="mt-4 pt-4 border-t border-gray-600">
+                  <div className="mt-3 pt-3 border-t border-gray-600">
                     <h4 className="text-sm font-medium mb-2 text-gray-300">Detalhes por rodada:</h4>
-                    <div className="overflow-x-auto">
+                    <div className="overflow-x-auto max-h-60 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
                       <table className="w-full text-xs text-gray-300">
-                        <thead>
+                        <thead className="sticky top-0 bg-gray-800">
                           <tr className="border-b border-gray-600">
-                            <th className="py-2 text-left">Rodada</th>
+                            <th className="py-2 text-left pl-2">Rodada</th>
                             <th className="py-2 text-right">Tamanho</th>
                             <th className="py-2 text-right">Distância</th>
                             <th className="py-2 text-right">Índice Fitts</th>
-                            <th className="py-2 text-right">Tempo</th>
+                            <th className="py-2 text-right pr-2">Tempo</th>
                           </tr>
                         </thead>
                         <tbody>
                           {calculateFittsIndex().map((data) => (
-                            <tr key={data.round} className="border-b border-gray-700">
-                              <td className="py-2">{data.round}</td>
-                              <td className="py-2 text-right">{data.size}px</td>
-                              <td className="py-2 text-right">{data.distance}px</td>
-                              <td className="py-2 text-right">{data.difficultyIndex}</td>
-                              <td className="py-2 text-right">{data.time}ms</td>
+                            <tr key={data.round} className="border-b border-gray-700 hover:bg-gray-700/30">
+                              <td className="py-1.5 pl-2">{data.round}</td>
+                              <td className="py-1.5 text-right">{data.size}px</td>
+                              <td className="py-1.5 text-right">{data.distance}px</td>
+                              <td className="py-1.5 text-right">{data.difficultyIndex}</td>
+                              <td className="py-1.5 text-right pr-2">{data.time}ms</td>
                             </tr>
                           ))}
                         </tbody>
@@ -318,7 +367,7 @@ export default function FittsLawGame() {
       {playing && (
         <div 
           ref={gameAreaRef}
-          className="relative w-full h-[500px] bg-gray-900 border border-gray-700 rounded-lg overflow-hidden"
+          className="relative w-full h-[350px] sm:h-[400px] md:h-[500px] bg-gray-900 border border-gray-700 rounded-lg overflow-hidden"
         >
           <div className="absolute top-4 left-4 bg-gray-800/70 px-3 py-1.5 rounded-full text-xs text-gray-300 z-20">
             Rodada {round}/{totalRounds}

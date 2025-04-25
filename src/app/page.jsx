@@ -151,7 +151,8 @@ export default function Home() {
             Site Portifólio Desenvolvimento
           </h3>
           <p className="text-muted-foreground mb-6">
-            Concepção do UXUI do site de portifólio de Desenvolvimento.
+            Concepção do UXUI do site de portifólio de desenvolvedora.
+            Daconcepção do UXUI até o desenvolvimento em Next.js.
           </p>
           <span className="inline-flex items-center text-primary hover:text-accent transition-colors group-hover:translate-x-1 duration-300">
             Ver detalhes
@@ -194,7 +195,6 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       </motion.a>
       
-      {/* Terceiro Card - Dashboard */}
       <motion.a 
         href="https://www.figma.com/design/66KuZV4x9ViytCyo90X77l/CMS-para-Imobili%C3%A1ria---JSI-Im%C3%B3veis?node-id=1-2&t=Jlyofu8r2wumrcnN-1" 
         target="_blank"

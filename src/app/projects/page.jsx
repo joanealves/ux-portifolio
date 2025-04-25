@@ -39,6 +39,14 @@ const projects = [
 export default function ProjectsPage() {
   return (
     <section className="min-h-screen px-6 md:px-24 py-24 bg-background text-foreground">
+      <div 
+        className="absolute top-1/4 -left-24 w-64 h-64 rounded-full opacity-50 blur-3xl"
+        style={{ backgroundColor: "hsl(252, 87%, 64%)" }} 
+      ></div>
+      <div 
+        className="absolute bottom-1/4 -right-24 w-96 h-96 rounded-full opacity-50 blur-3xl"
+        style={{ backgroundColor: "hsl(191, 97%, 77%)" }} 
+      ></div>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
