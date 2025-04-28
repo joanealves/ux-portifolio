@@ -64,44 +64,47 @@ export default function ProjectsPage() {
       <div className="grid gap-8 md:grid-cols-2">
         {projects.map((project, i) => (
           <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: i * 0.1 }}
-            className="p-6 border rounded-2xl hover:shadow-lg transition"
-          >
-            {project.image && (
-              <div className="relative w-full h-48 mb-4 rounded-xl overflow-hidden">
-                <Image
-                  src={project.image}
-                  alt={`Capa do projeto ${project.title}`}
-                  className="object-cover w-full h-full"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  priority={i === 0}
-                />
-              </div>
-            )}
-            <h2 className="text-2xl font-semibold mb-2">{project.title}</h2>
-            <p className="text-muted-foreground mb-4">{project.description}</p>
-
-            {project.link.startsWith('http') ? (
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-primary hover:underline"
-              >
-                Ver projeto <ArrowRight size={18} />
-              </a>
-            ) : (
-              <Link
-                href={project.link}
-                className="inline-flex items-center gap-2 text-primary hover:underline"
-              >
-                Ver projeto <ArrowRight size={18} />
-              </Link>
-            )}
-          </motion.div>
+          key={i}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: i * 0.1 }}
+          className="p-6 border rounded-2xl hover:shadow-lg transition"
+        >
+          {project.image && (
+            <div className="relative w-full h-48 mb-4 rounded-xl overflow-hidden">
+              <Image
+                src={project.image}
+                alt={`Capa do projeto ${project.title}`}
+                className="object-cover w-full h-full"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                priority={i === 0}
+              />
+            </div>
+          )}
+          <h2 className="text-2xl font-semibold mb-2">{project.title}</h2>
+          <p className="text-muted-foreground mb-4">{project.description}</p>
+        
+          {project.link.startsWith('http') ? (
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-primary hover:underline"
+              aria-label={`Ver projeto ${project.title}`}
+            >
+              Ver projeto <ArrowRight size={18} />
+            </a>
+          ) : (
+            <Link
+              href={project.link}
+              className="inline-flex items-center gap-2 text-primary hover:underline"
+              aria-label={`Ver projeto ${project.title}`}
+            >
+              Ver projeto <ArrowRight size={18} />
+            </Link>
+          )}
+        </motion.div>
+        
         ))}
       </div>
     </section>

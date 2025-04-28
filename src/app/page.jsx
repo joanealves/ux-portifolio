@@ -67,7 +67,7 @@ export default function Home() {
         variants={fadeInUp(0.1)}
       >
         <div className="bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mb-6 mx-auto">
-          <MousePointer className="w-7 h-7 text-primary" />
+          <MousePointer className="w-7 h-7 text-primary" aria-hidden="true" />
         </div>
         <h3 className="text-xl font-semibold text-center">UX/UI Design</h3>
         <p className="text-muted-foreground mt-3 text-center">Interfaces intuitivas centradas no usuário que encantam e facilitam a interação.</p>
@@ -78,7 +78,7 @@ export default function Home() {
         variants={fadeInUp(0.2)}
       >
         <div className="bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mb-6 mx-auto">
-          <Layers className="w-7 h-7 text-primary" />
+          <Layers className="w-7 h-7 text-primary" aria-hidden="true" />
         </div>
         <h3 className="text-xl font-semibold text-center">Arquitetura da Informação</h3>
         <p className="text-muted-foreground mt-3 text-center">Estruturamos conteúdos para criar jornadas fluidas e navegação intuitiva.</p>
@@ -89,7 +89,7 @@ export default function Home() {
         variants={fadeInUp(0.3)}
       >
         <div className="bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mb-6 mx-auto">
-          <Code className="w-7 h-7 text-primary" />
+          <Code className="w-7 h-7 text-primary" aria-hidden="true" />
         </div>
         <h3 className="text-xl font-semibold text-center">Desenvolvimento Front-end</h3>
         <p className="text-muted-foreground mt-3 text-center">Transformamos design em código eficiente, performático e acessível.</p>
@@ -100,8 +100,8 @@ export default function Home() {
 
       
 <section className="py-20 w-full relative">
-  <div className="absolute top-20 left-10 w-80 h-80 bg-primary/5 rounded-full blur-3xl opacity-60"></div>
-  <div className="absolute bottom-20 right-10 w-80 h-80 bg-accent/5 rounded-full blur-3xl opacity-60"></div>
+  <div className="absolute top-20 left-10 w-80 h-80 bg-primary/5 rounded-full blur-3xl opacity-60" aria-hidden="true"></div>
+  <div className="absolute bottom-20 right-10 w-80 h-80 bg-accent/5 rounded-full blur-3xl opacity-60" aria-hidden="true"></div>
   
   <div className="container mx-auto px-4 md:px-8 relative z-10">
     <motion.div 
@@ -134,11 +134,12 @@ export default function Home() {
         animate={{ opacity: 1, y: 0 }} 
         transition={{ duration: 0.5, delay: 0.1 }}
         className="group relative rounded-2xl overflow-hidden bg-gradient-to-br from-blue-950 to-gray-900/5 backdrop-blur-sm shadow-xl block cursor-pointer"
+        aria-labelledby="project-portfolio"
       >
         <div className="relative w-full h-48"> 
           <Image
             src={CapaPortifolio}
-            alt="Capa do Portfólio"
+            alt="Visualização do projeto de site portfolio"
             fill
             className="object-cover"
             sizes="100vw"
@@ -147,20 +148,20 @@ export default function Home() {
         </div>
 
         <div className="p-8">
-          <h3 className="text-xl font-medium mb-3 group-hover:text-primary transition-colors">
+          <h3 id="project-portfolio" className="text-xl font-medium mb-3 group-hover:text-primary transition-colors">
             Site Portifólio Desenvolvimento
           </h3>
           <p className="text-muted-foreground mb-6">
             Concepção do UXUI do site de portifólio de desenvolvedora.
-            Daconcepção do UXUI até o desenvolvimento em Next.js.
+            Da concepção do UXUI até o desenvolvimento em Next.js.
           </p>
           <span className="inline-flex items-center text-primary hover:text-accent transition-colors group-hover:translate-x-1 duration-300">
             Ver detalhes
-            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
           </span>
         </div>
 
-        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true"></div>
       </motion.a>
 
       <motion.a 
@@ -171,11 +172,12 @@ export default function Home() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
         className="group relative rounded-2xl overflow-hidden bg-gradient-to-br from-blue-950 to-gray-900/5 backdrop-blur-sm shadow-xl block cursor-pointer"
+        aria-labelledby="project-tech"
       >
          <div className="relative w-full h-48"> 
           <Image
             src={CapaTech}
-            alt="Capa proejto Tech Inclusiva"
+            alt="Visualização do projeto Tech Inclusiva"
             fill
             className="object-cover"
             sizes="100vw"
@@ -183,16 +185,16 @@ export default function Home() {
           />
         </div>
         <div className="p-8">
-          <h3 className="text-xl font-medium mb-3 group-hover:text-primary transition-colors">Tech Inclusiva</h3>
+          <h3 id="project-tech" className="text-xl font-medium mb-3 group-hover:text-primary transition-colors">Tech Inclusiva</h3>
           <p className="text-muted-foreground mb-6">
             Design focado em usabilidade e consciência para acessibilidade. Neste projeto você pode acompanhar todo fluxo de UX. Desenvolvido em grupo.
           </p>
           <span className="inline-flex items-center text-primary hover:text-accent transition-colors group-hover:translate-x-1 duration-300">
             Ver detalhes
-            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
           </span>
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true"></div>
       </motion.a>
       
       <motion.a 
@@ -203,11 +205,12 @@ export default function Home() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.3 }}
         className="group relative rounded-2xl overflow-hidden bg-gradient-to-br from-blue-950 to-gray-900/5 backdrop-blur-sm shadow-xl block cursor-pointer"
+        aria-labelledby="project-dashboard"
       >
         <div className="relative w-full h-48"> 
           <Image
             src={CapaImobiliaria}
-            alt="Capa proejto Tech Inclusiva"
+            alt="Visualização do projeto de Dashboard Imobiliária"
             fill
             className="object-cover"
             sizes="100vw"
@@ -215,16 +218,16 @@ export default function Home() {
           />
         </div>
         <div className="p-8">
-          <h3 className="text-xl font-medium mb-3 group-hover:text-primary transition-colors">Dashboard de Análise de Dados</h3>
+          <h3 id="project-dashboard" className="text-xl font-medium mb-3 group-hover:text-primary transition-colors">Dashboard de Análise de Dados</h3>
           <p className="text-muted-foreground mb-6">
             Visualização de dados complexos de forma simples e intuitiva para tomadas de decisão
           </p>
           <span className="inline-flex items-center text-primary hover:text-accent transition-colors group-hover:translate-x-1 duration-300">
             Ver detalhes
-            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
           </span>
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true"></div>
       </motion.a>
       </div>
       
@@ -232,7 +235,7 @@ export default function Home() {
         <Button asChild variant="outline" size="lg" className="bg-secondary/20 hover:bg-secondary/40 shadow-lg border-none">
           <Link href="/projects" className="group">
             Ver todos os projetos
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
           </Link>
         </Button>
       </div>
@@ -240,8 +243,8 @@ export default function Home() {
   </section>
       
       <section className="py-20 w-full bg-secondary/30 relative overflow-hidden">
-        <div className="absolute -top-40 -left-40 w-80 h-80 bg-primary/5 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -right-40 w-80 h-80 bg-accent/5 rounded-full blur-3xl"></div>
+        <div className="absolute -top-40 -left-40 w-80 h-80 bg-primary/5 rounded-full blur-3xl" aria-hidden="true"></div>
+        <div className="absolute -bottom-40 -right-40 w-80 h-80 bg-accent/5 rounded-full blur-3xl" aria-hidden="true"></div>
         
         <div 
           ref={statsRef} 
@@ -254,7 +257,7 @@ export default function Home() {
               animate={statsInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.4 }}
             >
-              <div className="text-5xl font-bold gradient-text mb-2">25+</div>
+              <div className="text-5xl font-bold gradient-text mb-2" aria-label="Mais de 25 projetos concluídos">25+</div>
               <p className="text-muted-foreground">Projetos Concluídos</p>
             </motion.div>
             
@@ -264,7 +267,7 @@ export default function Home() {
               animate={statsInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.4, delay: 0.1 }}
             >
-              <div className="text-5xl font-bold gradient-text mb-2">5+</div>
+              <div className="text-5xl font-bold gradient-text mb-2" aria-label="Mais de 5 anos de experiência">5+</div>
               <p className="text-muted-foreground">Anos de Experiência</p>
             </motion.div>
             
@@ -274,7 +277,7 @@ export default function Home() {
               animate={statsInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.4, delay: 0.2 }}
             >
-              <div className="text-5xl font-bold gradient-text mb-2">15+</div>
+              <div className="text-5xl font-bold gradient-text mb-2" aria-label="Mais de 15 clientes satisfeitos">15+</div>
               <p className="text-muted-foreground">Clientes Satisfeitos</p>
             </motion.div>
           </div>
@@ -285,8 +288,8 @@ export default function Home() {
         ref={ctaRef}
         className="py-24 w-full bg-gradient-to-br from-background to-secondary/50 relative overflow-hidden"
       >
-        <div className="absolute -top-20 -right-20 h-64 w-64 bg-primary/10 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-32 -left-20 h-64 w-64 bg-accent/10 rounded-full blur-3xl"></div>
+        <div className="absolute -top-20 -right-20 h-64 w-64 bg-primary/10 rounded-full blur-3xl" aria-hidden="true"></div>
+        <div className="absolute -bottom-32 -left-20 h-64 w-64 bg-accent/10 rounded-full blur-3xl" aria-hidden="true"></div>
         
         <div className="container mx-auto px-4 md:px-8 relative z-10">
           <motion.div 
@@ -310,6 +313,7 @@ export default function Home() {
               >
                 <Link href="/contact">
                   Entre em contato
+                  <span className="sr-only">para discutir seu projeto</span>
                 </Link>
               </Button>
               <Button 
@@ -320,6 +324,7 @@ export default function Home() {
               >
                 <Link href="/lab">
                   Explore o UX Lab
+                  <span className="sr-only">para ver recursos e ferramentas de UX</span>
                 </Link>
               </Button>
             </div>

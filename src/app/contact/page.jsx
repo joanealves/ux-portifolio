@@ -134,8 +134,8 @@ export default function ContactPage() {
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary hover:underline flex items-center gap-2"
+            aria-label='Conectar pelo Linkedin'
           >
-            <Linkedin size={20} />
             Conectar pelo LinkedIn
           </a>
         </div>

@@ -5,7 +5,6 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
 export default function MemoryGame() {
-  // Estado para controlar o jogo
   const [cards, setCards] = useState([])
   const [flipped, setFlipped] = useState([])
   const [matched, setMatched] = useState([])
@@ -14,15 +13,11 @@ export default function MemoryGame() {
   const [timer, setTimer] = useState(0)
   const [isActive, setIsActive] = useState(false)
 
-  // Frutas para o jogo
   const items = ["🍎", "🍌", "🍓", "🍇", "🍊", "🍍", "🥭", "🍑"]
 
-  // Inicializar o jogo
   const initializeGame = (difficulty = 8) => {
-    // Seleciona as frutas baseadas na dificuldade
     const selectedItems = items.slice(0, difficulty / 2)
     
-    // Cria o baralho embaralhado
     const newCards = [...selectedItems, ...selectedItems]
       .sort(() => Math.random() - 0.5)
       .map((item, index) => ({ id: index, value: item, isFlipped: false, isMatched: false }))
@@ -36,12 +31,10 @@ export default function MemoryGame() {
     setIsActive(true)
   }
 
-  // Efeito para inicializar o jogo quando componente montar
   useEffect(() => {
     initializeGame()
   }, [])
 
-  // Efeito para o timer
   useEffect(() => {
     let interval = null
     
@@ -56,7 +49,6 @@ export default function MemoryGame() {
     return () => clearInterval(interval)
   }, [isActive, gameOver])
 
-  // Verificar se o jogo acabou
   useEffect(() => {
     if (matched.length > 0 && matched.length === cards.length) {
       setGameOver(true)
@@ -64,17 +56,13 @@ export default function MemoryGame() {
     }
   }, [matched, cards])
 
-  // Lógica para virar cartas
   const handleClick = (id) => {
-    // Não permitir cliques durante animação ou em cartas já viradas
     if (flipped.length === 2) return
     if (flipped.includes(id) || matched.includes(id)) return
 
-    // Virar a carta selecionada
     const newFlipped = [...flipped, id]
     setFlipped(newFlipped)
 
-    // Se duas cartas estão viradas
     if (newFlipped.length === 2) {
       setMoves(moves + 1)
       
@@ -82,18 +70,15 @@ export default function MemoryGame() {
       const firstCard = cards.find(card => card.id === first)
       const secondCard = cards.find(card => card.id === second)
       
-      // Verificar se as cartas são iguais
       if (firstCard.value === secondCard.value) {
         setMatched([...matched, first, second])
         setFlipped([])
       } else {
-        // Temporizador para virar as cartas de volta
         setTimeout(() => setFlipped([]), 1000)
       }
     }
   }
 
-  // Formatar tempo
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60)
     const seconds = time % 60

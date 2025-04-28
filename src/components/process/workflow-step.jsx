@@ -1,16 +1,26 @@
-import { useState } from "react";
+"use client";
+
+import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Search, Users, Edit3, Code, Lightbulb, ArrowRight, LayoutPanelTop } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+const ActivityList = React.memo(({ activities }) => (
+  <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+    {activities.map((activity, i) => (
+      <li key={i} className="text-muted-foreground">{activity}</li>
+    ))}
+  </ul>
+));
+
 export default function UXProcess() {
   const [activeStep, setActiveStep] = useState(null);
-  
-  const processSteps = [
+
+  const processSteps = useMemo(() => [
     {
       id: "research",
       title: "Pesquisa",
-      icon: <Search className="h-6 w-6" />,
+      icon: <Search className="h-6 w-6" aria-label="Ícone de pesquisa" />,
       color: "bg-blue-500",
       description: "Investigação profunda para entender necessidades, comportamentos e pain points dos usuários.",
       activities: [
@@ -24,7 +34,7 @@ export default function UXProcess() {
     {
       id: "define",
       title: "Definição",
-      icon: <Lightbulb className="h-6 w-6" />,
+      icon: <Lightbulb className="h-6 w-6" aria-label="Ícone de definição" />,
       color: "bg-purple-500",
       description: "Síntese de insights para definir claramente o problema e oportunidades de design.",
       activities: [
@@ -38,7 +48,7 @@ export default function UXProcess() {
     {
       id: "ideate",
       title: "Ideação",
-      icon: <Edit3 className="h-6 w-6" />,
+      icon: <Edit3 className="h-6 w-6" aria-label="Ícone de ideação" />,
       color: "bg-amber-500",
       description: "Geração de múltiplas soluções criativas baseadas nas necessidades identificadas.",
       activities: [
@@ -52,7 +62,7 @@ export default function UXProcess() {
     {
       id: "prototype",
       title: "Prototipagem",
-      icon: <LayoutPanelTop className="h-6 w-6" />,
+      icon: <LayoutPanelTop className="h-6 w-6" aria-label="Ícone de prototipagem" />,
       color: "bg-green-500",
       description: "Criação de protótipos interativos para testar conceitos antes do desenvolvimento.",
       activities: [
@@ -66,7 +76,7 @@ export default function UXProcess() {
     {
       id: "implement",
       title: "Implementação",
-      icon: <Code className="h-6 w-6" />,
+      icon: <Code className="h-6 w-6" aria-label="Ícone de implementação" />,
       color: "bg-red-500",
       description: "Trabalho colaborativo com desenvolvedores para transformar designs em produtos reais.",
       activities: [
@@ -77,7 +87,7 @@ export default function UXProcess() {
         "Lançamento"
       ]
     }
-  ];
+  ], []);
 
   return (
     <div className="mx-auto max-w-6xl">
@@ -91,13 +101,15 @@ export default function UXProcess() {
                   ? "bg-dark-100 p-3 shadow-lg border border-primary/50" 
                   : "p-3 hover:bg-dark-100"
               }`}
+              aria-expanded={activeStep === step.id ? "true" : "false"}
+              aria-controls={`step-content-${step.id}`}
             >
               <div className={`w-10 h-10 rounded-full ${step.color} flex items-center justify-center text-dark-foreground`}>
                 {step.icon}
               </div>
               <span className={`font-medium ${activeStep === step.id ? "text-primary" : ""}`}>{step.title}</span>
             </button>
-            
+
             {index < processSteps.length - 1 && (
               <ArrowRight className="hidden md:block mx-2 text-muted-foreground" />
             )}
@@ -108,6 +120,7 @@ export default function UXProcess() {
       <div className="mt-8">
         {activeStep && (
           <motion.div
+            id={`step-content-${activeStep}`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -126,26 +139,13 @@ export default function UXProcess() {
                   <p className="text-muted-foreground mb-6">{step.description}</p>
                   
                   <h4 className="font-medium mb-3">Atividades principais:</h4>
-                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    {step.activities.map((activity, i) => (
-                      <li key={i} className="flex items-center">
-                        <div className={`w-2 h-2 rounded-full ${step.color} mr-3`}></div>
-                        {activity}
-                      </li>
-                    ))}
-                  </ul>
-                  
-                  <div className="mt-6">
-                    <Button variant="outline" size="sm" className="gap-2">
-                      Ver estudos de caso
-                      <ArrowRight className="h-4 w-4" />
-                    </Button>
-                  </div>
+                  <ActivityList activities={step.activities} />
                 </div>
               )
             )}
           </motion.div>
         )}
       </div>
-    </div>  );
+    </div>
+  );
 }

@@ -53,12 +53,14 @@ export default function AboutPage() {
               href="https://joanealves.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block"
+              className="inline-block px-6 py-3 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-semibold shadow-lg hover:brightness-110 transition-all"
+              aria-label="Ver Portfólio de Desenvolvimento"
             >
               <button className="px-6 py-3 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-semibold shadow-lg hover:brightness-110 transition-all">
-                💻 Ver Portfólio de Desenvolvimento
+              💻 Ver Portfólio de Desenvolvimento
               </button>
-            </a>
+          </a>
+
           </div>
  
           <div className="pt-6 border-t border-border">
