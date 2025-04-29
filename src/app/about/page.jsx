@@ -48,7 +48,7 @@ export default function AboutPage() {
               Além do design, também atuo como <strong className="text-primary">desenvolvedora Full Stack</strong>.  
               Essa combinação me permite transformar ideias em experiências completas — do conceito ao código, do protótipo ao produto final.
             </p>
-
+          <div className="flex flex-col sm:flex-row gap-4 mt-6">
             <a
               href="https://joanealves.vercel.app/"
               target="_blank"
@@ -56,10 +56,18 @@ export default function AboutPage() {
               className="inline-block px-6 py-3 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-semibold shadow-lg hover:brightness-110 transition-all"
               aria-label="Ver Portfólio de Desenvolvimento"
             >
-              <button className="px-6 py-3 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-semibold shadow-lg hover:brightness-110 transition-all">
               💻 Ver Portfólio de Desenvolvimento
-              </button>
-          </a>
+            </a>
+
+            <a
+              href="/curriculo-joane.pdf"
+              download
+              className="inline-block px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-semibold shadow-lg hover:brightness-110 transition-all"
+            >
+              📄 Baixar Currículo (PDF)
+            </a>
+          </div>
+
 
           </div>
  

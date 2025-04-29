@@ -81,7 +81,7 @@ export default function FontLegibilityGame() {
                 </SelectTrigger>
                 <SelectContent position="popper" className="bg-gray-700 text-white border-gray-600 z-50">
                   <SelectItem value="14px">14px</SelectItem>
-                  <SelectItem value="16px">16px (ideal)</SelectItem>
+                  <SelectItem value="16px">16px </SelectItem>
                   <SelectItem value="18px">18px</SelectItem>
                 </SelectContent>
               </Select>
@@ -95,7 +95,7 @@ export default function FontLegibilityGame() {
                 </SelectTrigger>
                 <SelectContent position="popper" className="bg-gray-700 text-white border-gray-600 z-50">
                   <SelectItem value="1.2">1.2</SelectItem>
-                  <SelectItem value="1.5">1.5 (ideal)</SelectItem>
+                  <SelectItem value="1.5">1.5 </SelectItem>
                   <SelectItem value="1.8">1.8</SelectItem>
                 </SelectContent>
               </Select>
