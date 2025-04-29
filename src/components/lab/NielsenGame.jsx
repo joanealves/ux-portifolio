@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { 
   CheckCircle, XCircle, RefreshCw, HelpCircle, Trophy, 
-  Clock, PauseCircle, PlayCircle, Settings, Info, Volume2, VolumeX,
+  Clock, PauseCircle, PlayCircle, Settings, Info, 
   ExternalLink, BarChart, BookOpen
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -154,13 +154,8 @@ export default function NielsenGame() {
   const [timerActive, setTimerActive] = useState(false)
   const [isPaused, setIsPaused] = useState(false)
   const [difficulty, setDifficulty] = useState("normal") 
-  const [soundEnabled, setSoundEnabled] = useState(true)
   const [heuristicStats, setHeuristicStats] = useState({})
   const [activeTab, setActiveTab] = useState("play")
-  
-  const correctSoundRef = useRef(null)
-  const wrongSoundRef = useRef(null)
-  const timeoutSoundRef = useRef(null)
   
   const getTimeForDifficulty = () => {
     switch (difficulty) {
@@ -184,30 +179,6 @@ export default function NielsenGame() {
   }
   
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      correctSoundRef.current = new Audio("/sounds/correct.mp3") 
-      wrongSoundRef.current = new Audio("/sounds/wrong.mp3")
-      timeoutSoundRef.current = new Audio("/sounds/timeout.mp3")
-    }
-  }, [])
-  
-  const playSound = (type) => {
-    if (!soundEnabled) return
-    
-    switch (type) {
-      case "correct":
-        correctSoundRef.current?.play()
-        break
-      case "wrong":
-        wrongSoundRef.current?.play()
-        break
-      case "timeout":
-        timeoutSoundRef.current?.play()
-        break
-    }
-  }
-  
-  useEffect(() => {
     let timer = null
     
     if (timerActive && countdown > 0 && !isPaused) {
@@ -225,7 +196,6 @@ export default function NielsenGame() {
   
   const handleTimeout = () => {
     setTimerActive(false)
-    playSound("timeout")
     
     updateHeuristicStat(currentQuestion.heuristicId, false)
     
@@ -235,10 +205,9 @@ export default function NielsenGame() {
       timeOut: true
     })
     setTotalQuestions(prev => prev + 1)
-    setStreak(0) // Resetar streak
+    setStreak(0) 
   }
   
-  // Atualizar estatísticas de heurísticas
   const updateHeuristicStat = (heuristicId, isCorrect) => {
     setHeuristicStats(prev => {
       const current = prev[heuristicId] || { correct: 0, total: 0 }
@@ -292,8 +261,6 @@ export default function NielsenGame() {
     updateHeuristicStat(currentQuestion.heuristicId, option.correct)
     
     if (option.correct) {
-      playSound("correct")
-      
       setScore(prev => prev + 1)
       setStreak(prev => prev + 1)
       
@@ -302,8 +269,6 @@ export default function NielsenGame() {
         message: "Correto! Esta é a heurística correta."
       })
     } else {
-      playSound("wrong")
-      
       setStreak(0)
       
       setFeedback({
@@ -326,10 +291,6 @@ export default function NielsenGame() {
   
   const togglePause = () => {
     setIsPaused(prev => !prev)
-  }
-  
-  const toggleSound = () => {
-    setSoundEnabled(prev => !prev)
   }
   
   const changeDifficulty = (value) => {
@@ -412,15 +373,6 @@ export default function NielsenGame() {
               {streak} acertos seguidos!
             </motion.div>
           )}
-          
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            onClick={toggleSound}
-            className="text-muted-foreground"
-          >
-            {soundEnabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
-          </Button>
           
           <Button 
             variant="ghost" 
