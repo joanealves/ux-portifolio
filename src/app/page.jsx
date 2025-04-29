@@ -49,7 +49,7 @@ export default function Home() {
     <div className="w-full min-h-screen bg-background text-foreground pt-24">
       <HeroSection />
       
-<section className="py-28 w-full bg-gradient-to-b from-background to-secondary/10">
+      <section className="py-28 w-full bg-gradient-to-b from-background to-secondary/10">
   <div className="text-center mb-16">
     <h2 className="text-3xl md:text-4xl font-bold block mt-2 gradient-text">O que fazemos</h2>
     <p className="text-muted-foreground mt-2">Soluções que combinam pesquisa, design e tecnologia.</p>
@@ -62,36 +62,48 @@ export default function Home() {
       initial="hidden"
       animate={featuresInView ? "visible" : "hidden"}
     >
+      {/* UX/UI Design Card */}
       <motion.div
-        className="bg-gradient-to-br from-violet-900/20 to-violet-800/5 backdrop-blur-sm rounded-2xl p-8 shadow-xl"
+        className="relative overflow-hidden rounded-2xl p-8 shadow-xl bg-gradient-to-br from-violet-500/10 to-fuchsia-500/10 backdrop-blur-md border border-violet-500/20 hover:border-violet-400/40 transition-all duration-300 group"
         variants={fadeInUp(0.1)}
       >
-        <div className="bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mb-6 mx-auto">
-          <MousePointer className="w-7 h-7 text-primary" aria-hidden="true" />
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-violet-600/5 to-fuchsia-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true"></div>
+        <div className="absolute -top-24 -right-24 w-48 h-48 bg-violet-500/10 rounded-full blur-3xl group-hover:bg-violet-500/20 transition-all duration-500" aria-hidden="true"></div>
+        
+        <div className="bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 rounded-full w-16 h-16 flex items-center justify-center mb-6 mx-auto shadow-md shadow-violet-500/10 group-hover:shadow-violet-500/30 transition-all duration-300">
+          <MousePointer className="w-7 h-7 text-violet-400 group-hover:text-violet-300 transition-colors duration-300" aria-hidden="true" />
         </div>
-        <h3 className="text-xl font-semibold text-center">UX/UI Design</h3>
+        <h3 className="text-xl font-semibold text-center group-hover:text-violet-300 transition-colors duration-300">UX/UI Design</h3>
         <p className="text-muted-foreground mt-3 text-center">Interfaces intuitivas centradas no usuário que encantam e facilitam a interação.</p>
       </motion.div>
 
+      {/* Arquitetura da Informação Card */}
       <motion.div
-        className="bg-gradient-to-br from-indigo-900/20 to-indigo-800/5 backdrop-blur-sm rounded-2xl p-8 shadow-xl"
+        className="relative overflow-hidden rounded-2xl p-8 shadow-xl bg-gradient-to-br from-cyan-500/10 to-blue-500/10 backdrop-blur-md border border-cyan-500/20 hover:border-cyan-400/40 transition-all duration-300 group"
         variants={fadeInUp(0.2)}
       >
-        <div className="bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mb-6 mx-auto">
-          <Layers className="w-7 h-7 text-primary" aria-hidden="true" />
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-cyan-600/5 to-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true"></div>
+        <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl group-hover:bg-cyan-500/20 transition-all duration-500" aria-hidden="true"></div>
+        
+        <div className="bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-full w-16 h-16 flex items-center justify-center mb-6 mx-auto shadow-md shadow-cyan-500/10 group-hover:shadow-cyan-500/30 transition-all duration-300">
+          <Layers className="w-7 h-7 text-cyan-400 group-hover:text-cyan-300 transition-colors duration-300" aria-hidden="true" />
         </div>
-        <h3 className="text-xl font-semibold text-center">Arquitetura da Informação</h3>
+        <h3 className="text-xl font-semibold text-center group-hover:text-cyan-300 transition-colors duration-300">Arquitetura da Informação</h3>
         <p className="text-muted-foreground mt-3 text-center">Estruturamos conteúdos para criar jornadas fluidas e navegação intuitiva.</p>
       </motion.div>
 
+      {/* Desenvolvimento Front-end Card */}
       <motion.div
-        className="bg-gradient-to-br from-blue-900/20 to-blue-800/5 backdrop-blur-sm rounded-2xl p-8 shadow-xl"
+        className="relative overflow-hidden rounded-2xl p-8 shadow-xl bg-gradient-to-br from-emerald-500/10 to-teal-500/10 backdrop-blur-md border border-emerald-500/20 hover:border-emerald-400/40 transition-all duration-300 group"
         variants={fadeInUp(0.3)}
       >
-        <div className="bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mb-6 mx-auto">
-          <Code className="w-7 h-7 text-primary" aria-hidden="true" />
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald-600/5 to-teal-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true"></div>
+        <div className="absolute -top-24 -left-24 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl group-hover:bg-emerald-500/20 transition-all duration-500" aria-hidden="true"></div>
+        
+        <div className="bg-gradient-to-br from-emerald-500/20 to-teal-500/20 rounded-full w-16 h-16 flex items-center justify-center mb-6 mx-auto shadow-md shadow-emerald-500/10 group-hover:shadow-emerald-500/30 transition-all duration-300">
+          <Code className="w-7 h-7 text-emerald-400 group-hover:text-emerald-300 transition-colors duration-300" aria-hidden="true" />
         </div>
-        <h3 className="text-xl font-semibold text-center">Desenvolvimento Front-end</h3>
+        <h3 className="text-xl font-semibold text-center group-hover:text-emerald-300 transition-colors duration-300">Desenvolvimento Front-end</h3>
         <p className="text-muted-foreground mt-3 text-center">Transformamos design em código eficiente, performático e acessível.</p>
       </motion.div>
     </motion.div>

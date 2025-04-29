@@ -39,7 +39,7 @@ const games = [
   },
   {
     id: "hicks-law",
-    title: "Hick’s Law Sprint",
+    title: "Hick's Law Sprint",
     description: "Quantas opções são demais? Teste sua velocidade de decisão conforme o número de escolhas aumenta.",
     component: <HicksLawGame />
   },
@@ -49,7 +49,6 @@ const games = [
     description: "Será que o agrupamento dos elementos ajuda ou atrapalha? Descubra os princípios da Gestalt na prática.",
     component: <ProximityGame />
   },
-  
   {
     id: "memory",
     title: "Jogo da Memória",
@@ -74,7 +73,6 @@ const games = [
     description: "O jogador deve ajustar a fonte, tamanho da fonte e espaçamento entre linhas para tornar o texto mais legível.",
     component: <FontLegibilityGame />
   }
-
 ]
 
 export default function Lab() {
@@ -94,18 +92,20 @@ export default function Lab() {
 
   return (
     <div className="w-full min-h-screen pt-24 px-4 sm:px-6 lg:px-8">
-      <section className="max-w-6xl mx-auto text-center mb-16">
-      <div 
-        className="absolute top-1/4 -left-24 w-64 h-64 rounded-full opacity-50 blur-3xl"
-        style={{ backgroundColor: "hsl(252, 87%, 64%)" }} 
-      ></div>
-      <div 
-        className="absolute bottom-1/4 -right-24 w-96 h-96 rounded-full opacity-50 blur-3xl"
-        style={{ backgroundColor: "hsl(191, 97%, 77%)" }} 
-      ></div>
+      <section className="max-w-6xl mx-auto text-center mb-16 relative">
+        <div 
+          className="absolute top-1/4 -left-24 w-64 h-64 rounded-full opacity-50 blur-3xl"
+          style={{ backgroundColor: "hsl(252, 87%, 64%)" }} 
+          aria-hidden="true"
+        ></div>
+        <div 
+          className="absolute bottom-1/4 -right-24 w-96 h-96 rounded-full opacity-50 blur-3xl"
+          style={{ backgroundColor: "hsl(191, 97%, 77%)" }} 
+          aria-hidden="true"
+        ></div>
 
         <h1 className="text-4xl font-bold mb-4 text-transparent bg-clip-text gradient-text">UX Lab </h1> 
-        <span className="text-4xl">🧪</span>
+        <span className="text-4xl" role="img" aria-label="Laboratório">🧪</span>
         <p className="text-gray-300 text-lg max-w-3xl mx-auto mb-6">
           Explore jogos interativos para testar e aprimorar suas habilidades em UX e usabilidade.
         </p>
@@ -126,8 +126,9 @@ export default function Lab() {
               <Button 
                 onClick={() => handleGameSelect(game.id)}
                 className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700"
+                aria-label={`Jogar ${game.title}`}
               >
-                Jogar <ArrowRight className="ml-2 h-4 w-4" />
+                Jogar <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
               </Button>
             </CardContent>
           </Card>
@@ -135,13 +136,20 @@ export default function Lab() {
       </div>
 
       <Dialog open={showGameModal} onOpenChange={setShowGameModal}>
-        <DialogContent className="sm:max-w-4xl bg-gray-800 border-gray-700 text-gray-100">
-          <DialogHeader className="flex flex-row items-center justify-between">
+        <DialogContent className="sm:max-w-4xl w-[95vw] max-h-[95vh] overflow-y-auto bg-gray-800 border-gray-700 text-gray-100 p-0">
+          <DialogHeader className="sticky top-0 z-10 bg-gray-800 border-b border-gray-700 p-4 flex flex-row items-center justify-between">
             <DialogTitle className="text-gray-100">{selectedGame?.title}</DialogTitle>
-            <Button variant="ghost" size="icon" onClick={closeGameModal} className="text-gray-300 hover:text-gray-100">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={closeGameModal} 
+              className="text-gray-300 hover:text-gray-100"
+              aria-label="Fechar"
+            >
+              <X className="h-5 w-5" />
             </Button>
           </DialogHeader>
-          <div className="mt-4">
+          <div className="p-4 overflow-y-auto">
             {selectedGame && selectedGame.component}
           </div>
         </DialogContent>

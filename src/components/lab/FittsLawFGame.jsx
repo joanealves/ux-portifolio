@@ -251,7 +251,7 @@ export default function FittsLawGame() {
             onMouseEnter={() => setIsTooltipVisible(true)}
             onMouseLeave={() => setIsTooltipVisible(false)}
             className="flex items-center justify-center w-8 h-8 text-sm bg-gray-700 text-gray-300 rounded-full hover:bg-gray-600 hover:text-gray-200 transition-colors cursor-pointer"
-            aria-label="Mostrar informações"
+            aria-label="Mostrar informações sobre a Lei de Fitts"
           >
             ℹ️
           </button>
@@ -265,17 +265,20 @@ export default function FittsLawGame() {
       </div>
       
       {showInfo && (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50">
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50 overflow-y-auto">
           <div 
             ref={modalRef}
             className="bg-gray-800 rounded-lg max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-xl"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-title"
           >
-            <div className="sticky top-0 bg-gray-800 flex justify-between items-center p-4 border-b border-gray-700">
-              <h3 className="font-medium text-lg text-gray-100">Sobre a Lei de Fitts</h3>
+            <div className="sticky top-0 bg-gray-800 flex justify-between items-center p-4 border-b border-gray-700 z-10">
+              <h3 id="modal-title" className="font-medium text-lg text-gray-100">Sobre a Lei de Fitts</h3>
               <button 
                 onClick={() => setShowInfo(false)}
                 className="p-2 hover:bg-gray-700 rounded-full transition-colors"
-                aria-label="Fechar"
+                aria-label="Fechar janela de informações"
               >
                 <X size={20} className="text-gray-400 hover:text-white" />
               </button>
@@ -320,6 +323,8 @@ export default function FittsLawGame() {
               onClick={() => setDifficulty("easy")}
               variant={difficulty === "easy" ? "default" : "outline"}
               className={difficulty === "easy" ? "bg-green-600 hover:bg-green-700" : "text-gray-300"}
+              aria-pressed={difficulty === "easy"}
+              aria-label="Selecionar dificuldade Fácil"
             >
               Fácil
             </Button>
@@ -327,6 +332,8 @@ export default function FittsLawGame() {
               onClick={() => setDifficulty("normal")}
               variant={difficulty === "normal" ? "default" : "outline"}
               className={difficulty === "normal" ? "bg-blue-600 hover:bg-blue-700" : "text-gray-300"}
+              aria-pressed={difficulty === "normal"}
+              aria-label="Selecionar dificuldade Normal"
             >
               Normal
             </Button>
@@ -334,6 +341,8 @@ export default function FittsLawGame() {
               onClick={() => setDifficulty("hard")}
               variant={difficulty === "hard" ? "default" : "outline"}
               className={difficulty === "hard" ? "bg-red-600 hover:bg-red-700" : "text-gray-300"}
+              aria-pressed={difficulty === "hard"}
+              aria-label="Selecionar dificuldade Difícil"
             >
               Difícil
             </Button>
@@ -342,6 +351,7 @@ export default function FittsLawGame() {
           <Button 
             onClick={startGame} 
             className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-bold px-8 py-3 rounded-lg text-lg shadow-md"
+            aria-label="Iniciar o jogo"
           >
             Iniciar
           </Button>
@@ -355,6 +365,7 @@ export default function FittsLawGame() {
                   variant="outline" 
                   size="sm" 
                   className="text-gray-300 text-xs"
+                  aria-label="Iniciar nova partida"
                 >
                   Nova Partida
                 </Button>
@@ -396,7 +407,7 @@ export default function FittsLawGame() {
                   <div className="mt-3 pt-3 border-t border-gray-600">
                     <h4 className="text-sm font-medium mb-2 text-gray-300">Detalhes por rodada:</h4>
                     <div className="overflow-x-auto max-h-60 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
-                      <table className="w-full text-xs text-gray-300">
+                      <table className="w-full text-xs text-gray-300" aria-label="Detalhes das rodadas">
                         <thead className="sticky top-0 bg-gray-800">
                           <tr className="border-b border-gray-600">
                             <th className="py-2 text-left pl-2">Rodada</th>
@@ -431,13 +442,16 @@ export default function FittsLawGame() {
         <div 
           ref={gameAreaRef}
           className="relative w-full h-[350px] sm:h-[400px] md:h-[500px] bg-gray-900 border border-gray-700 rounded-lg overflow-hidden"
+          aria-live="polite"
+          role="application"
+          aria-label="Área de jogo do Fitts' Law Challenge"
         >
           <div className="absolute top-4 left-4 bg-gray-800/70 px-3 py-1.5 rounded-full text-xs text-gray-300 z-20">
             Rodada {round}/{totalRounds}
           </div>
           
           {countdown !== null && (
-            <div className="absolute inset-0 flex items-center justify-center bg-gray-900/80 z-10">
+            <div className="absolute inset-0 flex items-center justify-center bg-gray-900/80 z-10" aria-live="assertive">
               <motion.div
                 initial={{ scale: 0.8, opacity: 0.5 }}
                 animate={{ scale: 1.2, opacity: 1 }}
