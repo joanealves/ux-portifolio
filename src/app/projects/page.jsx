@@ -7,20 +7,21 @@ import Image from 'next/image';
 
 import CapaImobiliaria from '../../assets/capaImobiliaria.png';
 import ecomerceCover from '../../assets/ecomerce.png';
+import CapaScandinavo from '../../assets/capa_scandinavo.jpg';
 
 
 const projects = [
   {
-    title: 'Plataforma de Streaming',
-    description: 'UX Research · UI Design · Prototipação',
-    link: '/projects/streaming',
-    image: '', 
+    title: 'Ecommerce | Scandinavo',
+    description: 'UX · UI Design · Prototipação',
+    link: 'https://www.figma.com/proto/jlN5e4HMk2dA0xnoYKu6Gf/Scandinavo-%7C-ECommerce-%7C-Design-web?node-id=117-336&t=VLSvoe18Ghvyt0Qf-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=117%3A1143',
+    image: CapaScandinavo, 
   },
   {
     title: 'Sistema de Gestão Escolar',
     description: 'Dashboard UX · Design System · Acessibilidade',
     link: '/projects/gestao-escolar',
-    image: '', 
+    image: CapaScandinavo, 
   },
   {
     title: 'Plataforma de Imobiliaria',
@@ -38,20 +39,20 @@ const projects = [
 
 export default function ProjectsPage() {
   return (
-    <section className="min-h-screen px-6 md:px-24 py-24 bg-background text-foreground">
+    <section className="min-h-screen px-6 md:px-12 lg:px-16 py-16 bg-background text-foreground">
       <div 
-        className="absolute top-1/4 -left-24 w-64 h-64 rounded-full opacity-50 blur-3xl"
+        className="absolute top-1/4 -left-24 w-64 h-64 rounded-full opacity-30 blur-3xl"
         style={{ backgroundColor: "hsl(252, 87%, 64%)" }} 
       ></div>
       <div 
-        className="absolute bottom-1/4 -right-24 w-96 h-96 rounded-full opacity-50 blur-3xl"
+        className="absolute bottom-1/4 -right-24 w-96 h-96 rounded-full opacity-30 blur-3xl"
         style={{ backgroundColor: "hsl(191, 97%, 77%)" }} 
       ></div>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-16"
+        className="text-center mb-12"
       >
         <h1 className="text-4xl md:text-5xl font-bold mb-4">
           <span className="gradient-text">Projetos & Cases</span>
@@ -64,47 +65,50 @@ export default function ProjectsPage() {
       <div className="grid gap-8 md:grid-cols-2">
         {projects.map((project, i) => (
           <motion.div
-          key={i}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: i * 0.1 }}
-          className="p-6 border rounded-2xl hover:shadow-lg transition"
-        >
-          {project.image && (
-            <div className="relative w-full h-48 mb-4 rounded-xl overflow-hidden">
-              <Image
-                src={project.image}
-                alt={`Capa do projeto ${project.title}`}
-                className="object-cover w-full h-full"
-                sizes="(max-width: 768px) 100vw, 50vw"
-                priority={i === 0}
-              />
+            key={i}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: i * 0.1 }}
+            className="group rounded-3xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition"
+          >
+            <div className="relative w-full h-60 md:h-64 lg:h-72 overflow-hidden px-4 pt-4">
+              <div className="h-full w-full rounded-2xl overflow-hidden">
+                <Image
+                  src={project.image}
+                  alt={`Capa do projeto ${project.title}`}
+                  className="object-cover w-full h-full"
+                  fill={true}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  priority={i === 0}
+                />
+              </div>
             </div>
-          )}
-          <h2 className="text-2xl font-semibold mb-2">{project.title}</h2>
-          <p className="text-muted-foreground mb-4">{project.description}</p>
-        
-          {project.link.startsWith('http') ? (
-            <a
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-primary hover:underline"
-              aria-label={`Ver projeto ${project.title}`}
-            >
-              Ver projeto <ArrowRight size={18} />
-            </a>
-          ) : (
-            <Link
-              href={project.link}
-              className="inline-flex items-center gap-2 text-primary hover:underline"
-              aria-label={`Ver projeto ${project.title}`}
-            >
-              Ver projeto <ArrowRight size={18} />
-            </Link>
-          )}
-        </motion.div>
-        
+            
+            <div className="p-5 pt-3">
+              <h2 className="text-xl font-bold text-white">{project.title}</h2>
+              <p className="text-gray-500 text-sm mt-1 mb-3">{project.description}</p>
+              
+              {project.link.startsWith('http') ? (
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-primary font-medium hover:underline"
+                  aria-label={`Ver projeto ${project.title}`}
+                >
+                  Ver projeto <ArrowRight size={18} />
+                </a>
+              ) : (
+                <Link
+                  href={project.link}
+                  className="inline-flex items-center gap-1 text-primary font-medium hover:underline"
+                  aria-label={`Ver projeto ${project.title}`}
+                >
+                  Ver projeto <ArrowRight size={18} />
+                </Link>
+              )}
+            </div>
+          </motion.div>
         ))}
       </div>
     </section>
