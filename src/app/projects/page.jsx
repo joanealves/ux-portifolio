@@ -8,9 +8,19 @@ import Image from 'next/image';
 import CapaImobiliaria from '../../assets/capaImobiliaria.png';
 import ecomerceCover from '../../assets/ecomerce.png';
 import CapaScandinavo from '../../assets/capa_scandinavo.jpg';
+import CapaSchema from '../../assets/capa_schema.jpg'
+import  CapaUXPortifolio from '../../assets/capa_uxPortifolio.png';
+import  CapaPortifolio from '../../assets/capa_portifolio.png';
 
 
 const projects = [
+
+  {
+    title: 'UX/UI | Joane Alves - UX Portifólio',
+    description: 'Dashboard UX · Design System · Acessibilidade - Desenvolvimento Frontend',
+    link: 'https://www.figma.com/design/GHBb29M9AXwWo4tqbszjuz/Joane-portif%C3%B3lio?node-id=47-2238&t=WPZ0KIKS7tO6UqfD-1',
+    image: CapaUXPortifolio, 
+  },
   {
     title: 'Ecommerce | Scandinavo',
     description: 'UX · UI Design · Prototipação',
@@ -18,10 +28,16 @@ const projects = [
     image: CapaScandinavo, 
   },
   {
-    title: 'Sistema de Gestão Escolar',
+    title: 'Design website',
     description: 'Dashboard UX · Design System · Acessibilidade',
-    link: '/projects/gestao-escolar',
-    image: CapaScandinavo, 
+    link: 'https://www.figma.com/design/uYiPKPIaNz9vjImMGqENat/Schema--Copy-?node-id=411-169&t=AXkj6VK82j4J0E0u-1',
+    image: CapaSchema, 
+  },
+  {
+    title: 'Joane Alves - Portifólio Desenvolvimento',
+    description: 'Dashboard UX · Design System · Acessibilidade - Desenvolvimento Frontend',
+    link: 'https://www.figma.com/design/iq9RxnRlm5a93DbpxktGqD/UX-Portif%C3%B3lio-%7C-Joane?m=auto&t=8KFi9cVjVLsf3abS-1',
+    image: CapaPortifolio, 
   },
   {
     title: 'Plataforma de Imobiliaria',

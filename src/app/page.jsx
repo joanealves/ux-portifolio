@@ -92,7 +92,6 @@ export default function Home() {
         <p className="text-muted-foreground mt-3 text-center">Estruturamos conteúdos para criar jornadas fluidas e navegação intuitiva.</p>
       </motion.div>
 
-      {/* Desenvolvimento Front-end Card */}
       <motion.div
         className="relative overflow-hidden rounded-2xl p-8 shadow-xl bg-gradient-to-br from-emerald-500/10 to-teal-500/10 backdrop-blur-md border border-emerald-500/20 hover:border-emerald-400/40 transition-all duration-300 group"
         variants={fadeInUp(0.3)}
