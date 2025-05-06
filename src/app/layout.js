@@ -11,6 +11,7 @@ const fontSans = FontSans({
 });
 
 export const metadata = {
+  metadataBase: new URL('https://ux-portifolio-tmuq.vercel.app/lab'),
   title: 'Joane Alves - UX/UI Designer e Full Stack Developer',
   description: 'Meu portfólio de UX/UI Design com projetos e jogos interativos',
   icons: {
@@ -18,7 +19,6 @@ export const metadata = {
   },
   keywords: 'UX, UI, Design, UX Design, Interface, Portfolio, Front-End, Next.js, React, sites, desenvolvimento web, wireframes, web design',
   authors: [{ name: 'Joane Alves' }],
-  colorScheme: 'dark',
   openGraph: {
     title: 'Joane Alves - UX/UI Designer e Front-End Developer',
     description: 'Portfólio de UX/UI Design com projetos de interfaces, arquitetura da informação e desenvolvimento front-end para web e aplicativos',
@@ -46,6 +46,9 @@ export const metadata = {
       'max-snippet': -1,
     }
   },
+};
+export const viewport = {
+  colorScheme: 'dark',
 };
 
 export default function RootLayout({ children }) {

@@ -11,6 +11,7 @@ import CapaScandinavo from '../../assets/capa_scandinavo.jpg';
 import CapaSchema from '../../assets/capa_schema.jpg'
 import  CapaUXPortifolio from '../../assets/capa_uxPortifolio.png';
 import  CapaPortifolio from '../../assets/capa_portifolio.png';
+import Tenute from '../../assets/tenute.gif';
 
 
 const projects = [
@@ -34,7 +35,7 @@ const projects = [
     image: CapaSchema, 
   },
   {
-    title: 'Joane Alves - Portifólio Desenvolvimento',
+    title: 'Joane Alves | Portifólio Desenvolvimento',
     description: 'Dashboard UX · Design System · Acessibilidade - Desenvolvimento Frontend',
     link: 'https://www.figma.com/design/iq9RxnRlm5a93DbpxktGqD/UX-Portif%C3%B3lio-%7C-Joane?m=auto&t=8KFi9cVjVLsf3abS-1',
     image: CapaPortifolio, 
@@ -44,6 +45,12 @@ const projects = [
     description: 'UX · Testes com usuários',
     link: 'https://www.figma.com/proto/66KuZV4x9ViytCyo90X77l/CMS-para-Imobili%C3%A1ria---JSI-Im%C3%B3veis?node-id=44-605&p=f&t=K1d9jJQX41eiPHj9-1&scaling=scale-down&content-scaling=fixed&page-id=1%3A2&starting-point-node-id=44%3A605',
     image: CapaImobiliaria,
+  },
+  {
+    title: 'Tenute | Website',
+    description: 'Projeto website Tenute Vinhos. Um projeto no-code em webflow. No ano de 2021, lançamento do projeto de resort.',
+    link: 'https://vinho-2bee95e37e1aa0589d3ebb6ed2f69037.webflow.io/',
+    image: Tenute,
   },
   {
     title: 'E-commerce',
@@ -96,6 +103,7 @@ export default function ProjectsPage() {
                   fill={true}
                   sizes="(max-width: 768px) 100vw, 50vw"
                   priority={i === 0}
+                  unoptimized 
                 />
               </div>
             </div>
