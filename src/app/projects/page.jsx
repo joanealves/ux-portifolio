@@ -11,7 +11,7 @@ import CapaScandinavo from '../../assets/capa_scandinavo.jpg';
 import CapaSchema from '../../assets/capa_schema.jpg'
 import  CapaUXPortifolio from '../../assets/capa_uxPortifolio.png';
 import  CapaPortifolio from '../../assets/capa_portifolio.png';
-import Tenute from '../../assets/tenute.gif';
+import Tenute from '../../../public/tenute.gif';
 
 
 const projects = [
