@@ -62,7 +62,6 @@ export default function Home() {
       initial="hidden"
       animate={featuresInView ? "visible" : "hidden"}
     >
-      {/* UX/UI Design Card */}
       <motion.div
         className="relative overflow-hidden rounded-2xl p-8 shadow-xl bg-gradient-to-br from-violet-500/10 to-fuchsia-500/10 backdrop-blur-md border border-violet-500/20 hover:border-violet-400/40 transition-all duration-300 group"
         variants={fadeInUp(0.1)}
@@ -77,7 +76,6 @@ export default function Home() {
         <p className="text-muted-foreground mt-3 text-center">Interfaces intuitivas centradas no usuário que encantam e facilitam a interação.</p>
       </motion.div>
 
-      {/* Arquitetura da Informação Card */}
       <motion.div
         className="relative overflow-hidden rounded-2xl p-8 shadow-xl bg-gradient-to-br from-cyan-500/10 to-blue-500/10 backdrop-blur-md border border-cyan-500/20 hover:border-cyan-400/40 transition-all duration-300 group"
         variants={fadeInUp(0.2)}

@@ -48,7 +48,7 @@ const projects = [
   },
   {
     title: 'Tenute | Website',
-    description: 'Projeto website Tenute Vinhos. Um projeto no-code em webflow. No ano de 2021, lançamento do projeto de resort.',
+    description: 'Projeto website Tenute Vinhos. Um projeto no-code em webflow. No ano de 2021, lançamento do projeto de resort.Partcipei do design, edição do vídeo de apresentação e desenvolvimento em webflow',
     link: 'https://vinho-2bee95e37e1aa0589d3ebb6ed2f69037.webflow.io/',
     image: Tenute,
   },

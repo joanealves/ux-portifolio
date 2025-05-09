@@ -5,7 +5,6 @@ export default function SkillsChart() {
   const [activeTab, setActiveTab] = useState("ux");
   const [animateSkills, setAnimateSkills] = useState(false);
   
-  // Dados de habilidades
   const skillsData = {
     ux: [
       { name: "Pesquisa de Usuários", level: 95 },
@@ -32,7 +31,6 @@ export default function SkillsChart() {
   };
   
   useEffect(() => {
-    // Iniciar animação após mudança de tab
     setAnimateSkills(false);
     const timer = setTimeout(() => {
       setAnimateSkills(true);
@@ -49,7 +47,6 @@ export default function SkillsChart() {
   
   return (
     <div className="mb-12">
-      {/* Tabs */}
       <div className="flex space-x-2 mb-8 overflow-x-auto pb-2">
         {tabs.map((tab) => (
           <button
@@ -66,7 +63,6 @@ export default function SkillsChart() {
         ))}
       </div>
 
-      {/* Skills Chart */}
       <div className="bg-dark-100 rounded-xl p-6">
         <div className="space-y-6">
           {skillsData[activeTab].map((skill, index) => (
@@ -87,7 +83,6 @@ export default function SkillsChart() {
           ))}
         </div>
         
-        {/* Animated Tips */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

@@ -536,7 +536,7 @@ export default function NielsenGame() {
   return (
     <div className="max-w-3xl mx-auto">
       <Tabs defaultValue="play" value={activeTab} onValueChange={setActiveTab}>
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex flex-wrap justify-between items-center gap-4 mb-20">
           <TabsList>
             <TabsTrigger value="play" className="gap-2">
               <RefreshCw className="h-4 w-4" />

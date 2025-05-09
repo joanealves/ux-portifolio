@@ -62,7 +62,6 @@ export default function CareerTimeline() {
   
   return (
     <div className="relative">
-      {/* Linha vertical conectora */}
       <div className="absolute left-6 md:left-8 top-8 bottom-20 w-0.5 bg-gradient-to-b from-primary via-primary/50 to-accent/50"></div>
       
       <div className="space-y-12">
@@ -75,18 +74,15 @@ export default function CareerTimeline() {
             viewport={{ once: true, margin: "-100px" }}
             className="relative pl-16 md:pl-20"
           >
-            {/* Ícone no timeline */}
             <div className={`absolute left-0 h-12 w-12 rounded-full flex items-center justify-center ${item.color} shadow-lg z-10`}>
               {item.icon}
             </div>
             
-            {/* Ano */}
             <div className="flex items-center mb-2">
               <Calendar className="h-4 w-4 mr-2 text-muted-foreground" />
               <span className="text-sm text-muted-foreground">{item.year}</span>
             </div>
             
-            {/* Conteúdo */}
             <div 
               className={`p-6 rounded-xl bg-dark-100 border border-border transition-all duration-300 hover:border-primary/50 cursor-pointer ${expandedId === item.id ? 'shadow-md shadow-primary/5' : ''}`}
               onClick={() => toggleExpand(item.id)}
@@ -123,7 +119,6 @@ export default function CareerTimeline() {
         ))}
       </div>
       
-      {/* Ponto final */}
       <div className="relative h-12 ml-6 md:ml-8">
         <motion.div 
           className="absolute left-0 top-0 h-6 w-6 rounded-full bg-accent pulse-animation"

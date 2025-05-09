@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { Progress } from "@/components/ui/progress"
 
 export default function ColorContrastGame() {
   const [score, setScore] = useState(0)
@@ -25,6 +26,8 @@ export default function ColorContrastGame() {
   const startGame = () => {
     const randomIndex = Math.floor(Math.random() * colors.length)
     setCorrectAnswer(colors[randomIndex].name)
+    setSelectedColor("")
+    setFeedbackMessage("")
   }
 
   const handleSelectColor = (color) => {
@@ -34,70 +37,74 @@ export default function ColorContrastGame() {
     const isCorrect = checkContrast(selected.backgroundColor, selected.textColor)
 
     if (isCorrect) {
-      setScore(score + 1)
-      setFeedbackMessage("Correta! O contraste de cor é adequado.")
+      setScore(prev => prev + 1)
+      setFeedbackMessage("✅ Correto! Este é um exemplo de contraste acessível.")
     } else {
-      setFeedbackMessage("Incorreta! O contraste de cor não é adequado.")
+      setFeedbackMessage("❌ Incorreto. Este contraste não é considerado acessível.")
     }
 
     setSelectedColor(color)
 
-    if (score >= 3) {
+    if (score + 1 >= 5) {
       setGameCompleted(true)
+    } else {
+      setTimeout(startGame, 1500)
     }
   }
 
   useEffect(() => {
-    if (!gameCompleted) {
-      startGame()
-    }
-  }, [gameCompleted])
+    if (!gameCompleted) startGame()
+  }, [])
 
   return (
-    <div className="flex flex-col items-center p-6 bg-gray-800 min-h-screen">
-      <Card className="w-full max-w-md bg-gray-700">
-        <CardContent>
-          <h2 className="text-xl text-gray-200 mb-4">Teste de Acessibilidade de Cor</h2>
-          {!gameCompleted ? (
-            <>
-              <p className="text-sm text-gray-300 mb-4">
-                Escolha o esquema de cores que apresenta o melhor contraste de cor.
-              </p>
-              <div className="space-y-4">
-                {colors.map((color) => (
-                  <Button
-                    key={color.name}
-                    className={`w-full py-2 bg-${color.name === selectedColor ? "green-500" : "gray-500"} text-gray-100`}
-                    onClick={() => handleSelectColor(color.name)}
-                    style={{
-                      backgroundColor: color.backgroundColor,
-                      color: color.textColor,
-                      border: selectedColor === color.name ? '2px solid #10B981' : 'none',
-                    }}
-                  >
-                    {color.name}
-                  </Button>
-                ))}
-              </div>
-              <p className="mt-4 text-sm text-gray-300">{feedbackMessage}</p>
-            </>
-          ) : (
-            <div className="text-center">
-              <h3 className="text-lg text-gray-200">Jogo Completo!</h3>
-              <p className="text-sm text-gray-300 mt-2">Você acertou {score} de 3.</p>
-              <Button
-                className="mt-4 bg-blue-600 text-white"
-                onClick={() => {
-                  setScore(0)
-                  setGameCompleted(false)
-                }}
-              >
-                Jogar novamente
-              </Button>
-            </div>
-          )}
-        </CardContent>
-      </Card>
-    </div>
+    <Card className="bg-white shadow-xl max-w-xl mx-auto mt-10 rounded-2xl">
+      <CardContent className="p-6 space-y-6">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-800">Jogo do Contraste de Cores</h1>
+          <p className="text-gray-600 mt-2">
+            Escolha a combinação de cores com melhor contraste. Um bom contraste ajuda na acessibilidade e leitura.
+          </p>
+        </div>
+
+        <Progress value={(score / 5) * 100} className="h-3 bg-gray-200" />
+
+        <div className="grid grid-cols-2 gap-4">
+          {colors.map((color) => (
+            <button
+              key={color.name}
+              onClick={() => handleSelectColor(color.name)}
+              className={`p-4 rounded-xl border transition-all hover:scale-105 ${
+                selectedColor === color.name ? "ring-2 ring-blue-500" : ""
+              }`}
+              style={{
+                backgroundColor: color.backgroundColor,
+                color: color.textColor
+              }}
+            >
+              {color.name}
+            </button>
+          ))}
+        </div>
+
+        {feedbackMessage && (
+          <div className="text-center text-lg font-medium text-gray-800">
+            {feedbackMessage}
+          </div>
+        )}
+
+        {gameCompleted && (
+          <div className="text-center mt-4">
+            <p className="text-green-600 text-xl font-semibold">🎉 Parabéns! Você concluiu o jogo com sucesso.</p>
+            <Button className="mt-3" onClick={() => {
+              setScore(0)
+              setGameCompleted(false)
+              startGame()
+            }}>
+              Jogar Novamente
+            </Button>
+          </div>
+        )}
+      </CardContent>
+    </Card>
   )
 }

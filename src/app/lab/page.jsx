@@ -17,6 +17,8 @@ import MemoryGame from "@/components/lab/MemoryGAme"
 import DragAndDropGame from "@/components/lab/DragAndDropGame"
 import ColorContrastGame from "@/components/lab/ColorContrsatGame"
 import FontLegibilityGame from "@/components/lab/FontLegibillityGame"
+import UserJourneyGame from "@/components/lab/UserJourneyGame"
+import CSDMatrixGame from "@/components/lab/CsdMatrixGame"
 
 const games = [
   {
@@ -72,6 +74,18 @@ const games = [
     title: "Legibilidade das Fontes",
     description: "O jogador deve ajustar a fonte, tamanho da fonte e espaçamento entre linhas para tornar o texto mais legível.",
     component: <FontLegibilityGame />
+  },
+  {
+    id: "user-jorney",
+    title: "Jornada do Usuario",
+    description: "O jogador deve organizar corretamente as etapas da jornada de um usuário (ex: Descoberta, Consideração, Compra, Uso, Pós-venda) em uma linha do tempo visual.",
+    component: <UserJourneyGame />
+  },
+  {
+    id: "Csd-Matrix",
+    title: "Matrix C",
+    description: "É uma dinâmica interativa  usada em processos de design e inovação. O objetivo é classificar afirmações de um projeto como Certezas, Suposições ou Dúvidas, ajudando na priorização e validação de hipóteses.Não exsite certo ou errado a ideia é provocar as discussões.",
+    component: <CSDMatrixGame />
   }
 ]
 
