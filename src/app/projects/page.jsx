@@ -52,12 +52,6 @@ const projects = [
     link: 'https://vinho-2bee95e37e1aa0589d3ebb6ed2f69037.webflow.io/',
     image: Tenute,
   },
-  {
-    title: 'E-commerce',
-    description: 'UX - UI',
-    link: 'https://www.figma.com/proto/XNIvlsu2557LMc5GzDM9ab/E-commerce-Website?node-id=20-2&p=f&t=0R3rEBr3He96DCNM-0&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=20%3A2&show-proto-sidebar=1',
-    image: ecomerceCover,
-  },
 ];
 
 export default function ProjectsPage() {

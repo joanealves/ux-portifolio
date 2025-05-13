@@ -51,7 +51,7 @@ export default function Home() {
       
       <section className="py-28 w-full bg-gradient-to-b from-background to-secondary/10">
   <div className="text-center mb-16">
-    <h2 className="text-3xl md:text-4xl font-bold block mt-2 gradient-text">O que fazemos</h2>
+    <h2 className="text-3xl md:text-4xl font-bold block mt-2 gradient-text">Soluções</h2>
     <p className="text-muted-foreground mt-2">Soluções que combinam pesquisa, design e tecnologia.</p>
   </div>
 
