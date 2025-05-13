@@ -56,7 +56,7 @@ export default function HeroSection() {
             </h1>
             
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Olá! Me chamo Joane,<span ref={typeTextRef} className="text-primary font-medium">|</span>{" "}
+              Olá! Me chamo Joane, <span ref={typeTextRef} className="text-primary font-medium">|</span>{" "}
                especialista em criar interfaces intuitivas e experiências que conectam pessoas a produtos.
             </p>
             

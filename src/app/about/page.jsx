@@ -18,36 +18,25 @@ export default function AboutPage() {
               <span className="gradient-text">Quem é Joane Alves</span>
             </h1>
             <p className="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
-              Desde 2021, venho desenhando experiências que conectam pessoas, emoções e tecnologia.
+              Desde 2021, venho criando experiências digitais que unem design, tecnologia e impacto real na vida das pessoas.
             </p>
           </div>
-  
           <div className="space-y-6 text-base md:text-lg leading-loose max-w-3xl">
             <p>
-              Sou <strong className="text-primary">UX/UI Designer</strong> com foco em criar experiências digitais intuitivas, acessíveis e centradas no usuário. 
-              Acredito no design como ferramenta estratégica para resolver problemas reais e transformar ideias em soluções encantadoras.
+              Sou <strong className="text-primary">UX/UI Designer</strong> com background em desenvolvimento Full Stack e foco em criar soluções acessíveis, intuitivas e centradas no usuário — do mobile ao desktop. 
+              Atuo em todo o ciclo do design: pesquisa, jornada do usuário, wireframes, UI com design systems, prototipação e testes.
             </p>
-            <p> Eu iniciei no design e  na fotografia, trabalhei em agências e studios.
-              Na pandemia, tive minha primeira  experiência com UXUI, fiz alguns cursos e quando precisei criar um projeto que conectava Pcds ao mercado de tecnologia, me senti desafiada, a entender como a acessebilidade impacta tanto a vida das pessoas.
+            <p> Minha trajetória começou no design gráfico e fotografia, passou por agências e ganhou propósito real ao criar um projeto voltado à    inclusão de <span className="text-accent">PCDs</span> no mercado tech. 
+              Foi aí que entendi o poder do design acessível e seu impacto direto nas pessoas.
             </p>
-            <p> Percebi que o UX é capaz de mudar a realidade dos usuários, aliado as tecnologias. 
-              Andando junto ao desenvolvimento, pode gerar uma mudança, nos habitos dos usuários e das empresas. Impactando o jeito que o mercado funciona, gerando assim lucros para os dois lados.
-            </p>
-  
-            <p>
-              Atuo em todo o ciclo do design: pesquisa com usuários, mapeamento de jornadas, wireframes, UI com sistemas de design, protótipos navegáveis e testes de usabilidade. 
-              Trabalho para que cada decisão de interface tenha propósito e gere valor.
+            <p>Meu diferencial está na integração entre <strong className="text-accent">design e código</strong>: como dev Full Stack, colaboro com times de engenharia com fluidez 
+      e contribuo na entrega de produtos que funcionam na prática, sem perder a experiência do usuário no centro.
             </p>
   
             <p>
-              Meu diferencial está na ponte entre criatividade e tecnologia — minha experiência como <span className="text-accent">desenvolvedora Full Stack</span> me permite colaborar de forma mais integrada com engenheiros e transformar designs em experiências reais com precisão.
+               Transformo ideias em produtos reais — que resolvem problemas, geram valor e conectam pessoas.
             </p>
-          </div>
-          <div className="space-y-4 mt-8">
-            <p className="text-base md:text-lg leading-loose">
-              Além do design, também atuo como <strong className="text-primary">desenvolvedora Full Stack</strong>.  
-              Essa combinação me permite transformar ideias em experiências completas — do conceito ao código, do protótipo ao produto final.
-            </p>
+  
           <div className="flex flex-col sm:flex-row gap-4 mt-6">
             <a
               href="https://joanealves.vercel.app/"

@@ -19,7 +19,7 @@ const projects = [
   {
     title: 'UX/UI | Joane Alves - UX Portifólio',
     description: 'Dashboard UX · Design System · Acessibilidade - Desenvolvimento Frontend',
-    link: 'https://www.figma.com/design/GHBb29M9AXwWo4tqbszjuz/Joane-portif%C3%B3lio?node-id=47-2238&t=WPZ0KIKS7tO6UqfD-1',
+    link: 'https://www.figma.com/design/iq9RxnRlm5a93DbpxktGqD/UX-Portif%C3%B3lio-%7C-Joane?node-id=1-14&t=Lprr9zSI4pVQggGF-1',
     image: CapaUXPortifolio, 
   },
   {
