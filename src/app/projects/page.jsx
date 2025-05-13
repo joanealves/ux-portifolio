@@ -6,12 +6,12 @@ import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 
 import CapaImobiliaria from '../../assets/capaImobiliaria.png';
-import ecomerceCover from '../../assets/ecomerce.png';
 import CapaScandinavo from '../../assets/capa_scandinavo.jpg';
 import CapaSchema from '../../assets/capa_schema.jpg'
 import  CapaUXPortifolio from '../../assets/capa_uxPortifolio.png';
 import  CapaPortifolio from '../../assets/capa_portifolio.png';
 import Tenute from '../../assets/Tenute.png';
+import Ecommerce from "../../assets/capa_ecommerce.png";
 
 
 const projects = [
@@ -29,16 +29,22 @@ const projects = [
     image: CapaScandinavo, 
   },
   {
-    title: 'Design website',
-    description: 'Dashboard UX · Design System · Acessibilidade',
-    link: 'https://www.figma.com/design/uYiPKPIaNz9vjImMGqENat/Schema--Copy-?node-id=411-169&t=AXkj6VK82j4J0E0u-1',
-    image: CapaSchema, 
-  },
-  {
     title: 'Joane Alves | Portifólio Desenvolvimento',
     description: 'Dashboard UX · Design System · Acessibilidade - Desenvolvimento Frontend',
     link: 'https://www.figma.com/design/iq9RxnRlm5a93DbpxktGqD/UX-Portif%C3%B3lio-%7C-Joane?m=auto&t=8KFi9cVjVLsf3abS-1',
     image: CapaPortifolio, 
+  },
+  {
+    title: 'Tenute | Website',
+    description: 'Projeto website Tenute Vinhos. Um projeto no-code em webflow. No ano de 2021, lançamento do projeto de resort.Partcipei do design, edição do vídeo de apresentação e desenvolvimento em webflow',
+    link: 'https://vinho-2bee95e37e1aa0589d3ebb6ed2f69037.webflow.io/',
+    image: Tenute,
+  },
+  {
+    title: 'Ecommerce | UX',
+    description: 'Projeto de ecommerce de loja web e mobile.',
+    link: 'https://www.figma.com/proto/XNIvlsu2557LMc5GzDM9ab/E-commerce-Website?node-id=20-2&p=f&t=EqcctkKyyXtH1ttI-0&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=20%3A2',
+    image: Ecommerce,
   },
   {
     title: 'Plataforma de Imobiliaria',
@@ -47,10 +53,10 @@ const projects = [
     image: CapaImobiliaria,
   },
   {
-    title: 'Tenute | Website',
-    description: 'Projeto website Tenute Vinhos. Um projeto no-code em webflow. No ano de 2021, lançamento do projeto de resort.Partcipei do design, edição do vídeo de apresentação e desenvolvimento em webflow',
-    link: 'https://vinho-2bee95e37e1aa0589d3ebb6ed2f69037.webflow.io/',
-    image: Tenute,
+    title: 'Design website',
+    description: 'Dashboard UX · Design System · Acessibilidade',
+    link: 'https://www.figma.com/design/uYiPKPIaNz9vjImMGqENat/Schema--Copy-?node-id=411-169&t=AXkj6VK82j4J0E0u-1',
+    image: CapaSchema, 
   },
 ];
 
