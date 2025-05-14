@@ -18,6 +18,7 @@ import ColorContrastGame from "@/components/lab/ColorContrsatGame"
 import FontLegibilityGame from "@/components/lab/FontLegibillityGame"
 import UserJourneyGame from "@/components/lab/UserJourneyGame"
 import CSDMatrixGame from "@/components/lab/CsdMatrixGame"
+import Navbar from "@/components/layout/navbar"
 
 const games = [
   {
@@ -104,6 +105,8 @@ export default function Lab() {
   const selectedGame = games.find(game => game.id === activeGame)
 
   return (
+    <>
+    <Navbar/>
     <div className="w-full min-h-screen pt-24 px-4 sm:px-6 lg:px-8">
       <section className="max-w-6xl mx-auto text-center mb-16 relative">
         <div 
@@ -168,5 +171,6 @@ export default function Lab() {
         </DialogContent>
       </Dialog>
     </div>
+    </>
   )
 }

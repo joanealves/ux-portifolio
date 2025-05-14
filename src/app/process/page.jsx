@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Search, Users, Edit3, Code, Lightbulb, ArrowRight, LayoutPanelTop, Mail, Workflow, Palette, TestTube, Repeat } from "lucide-react";
+import { Search, Edit3, Code, Lightbulb, ArrowRight, LayoutPanelTop } from "lucide-react";
+
+import Navbar from "@/components/layout/navbar";
 
 export default function UXProcessPage() {
   const [activeStep, setActiveStep] = useState(null);
@@ -85,41 +87,10 @@ export default function UXProcessPage() {
     }
   ];
 
-  const fullPageSteps = [
-    {
-      icon: <Lightbulb className="w-8 h-8 text-primary" />,
-      title: '1. Descoberta',
-      desc: 'Entendemos o contexto, objetivos e necessidades reais do projeto.',
-    },
-    {
-      icon: <Search className="w-8 h-8 text-primary" />,
-      title: '2. Pesquisa',
-      desc: 'Entrevistas, benchmarks e análise de comportamento para basear o design em dados.',
-    },
-    {
-      icon: <Workflow className="w-8 h-8 text-primary" />,
-      title: '3. Arquitetura',
-      desc: 'Estruturamos a navegação, fluxos e hierarquias para uma experiência clara.',
-    },
-    {
-      icon: <Palette className="w-8 h-8 text-primary" />,
-      title: '4. UI Design',
-      desc: 'Criação da interface com foco em estética, acessibilidade e consistência visual.',
-    },
-    {
-      icon: <TestTube className="w-8 h-8 text-primary" />,
-      title: '5. Testes',
-      desc: 'Protótipos navegáveis e testes com usuários para validar decisões.',
-    },
-    {
-      icon: <Repeat className="w-8 h-8 text-primary" />,
-      title: '6. Iteração',
-      desc: 'Ajustes finos com base em feedbacks e entrega final pronta para dev.',
-    },
-  ];
-
   return (
-    <section className="snap-y snap-mandatory h-screen overflow-y-scroll bg-background text-foreground">
+    <>
+    <Navbar />
+    <main className="min-h-screen bg-background text-foreground">
       <div 
         className="absolute top-1/4 -left-24 w-64 h-64 rounded-full opacity-50 blur-3xl"
         style={{ backgroundColor: "hsl(252, 87%, 64%)" }} 
@@ -128,7 +99,7 @@ export default function UXProcessPage() {
         className="absolute bottom-1/4 -right-24 w-96 h-96 rounded-full opacity-50 blur-3xl"
         style={{ backgroundColor: "hsl(191, 97%, 77%)" }} 
       ></div>
-      <div className="h-screen flex flex-col justify-center snap-start">
+      <div className="h-screen flex flex-col justify-center">
         <div className="mx-auto max-w-6xl px-6">
           <motion.h1 
             className="text-4xl md:text-5xl font-bold mb-8 text-center"
@@ -137,8 +108,9 @@ export default function UXProcessPage() {
             transition={{ duration: 0.5 }}
           >
             Meu Processo de UX Design
+            
           </motion.h1>
-
+            
           <motion.div 
             className="flex flex-wrap md:flex-nowrap items-center justify-between mb-12 gap-4"
             initial={{ opacity: 0, y: 20 }}
@@ -208,56 +180,7 @@ export default function UXProcessPage() {
           </div>
         </div>
       </div>
-
-      {fullPageSteps.map((step, i) => (
-        <motion.div
-          key={i}
-          className="h-screen flex flex-col justify-center items-center px-6 text-center snap-start"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: i * 0.1 }}
-          viewport={{ once: false, amount: 0.3 }}
-        >
-          <motion.div 
-            className="mb-6 p-4 rounded-full bg-dark-100 hover:bg-dark-200 cursor-pointer transition-all duration-300 hover:shadow-md"
-            whileHover={{ scale: 1.1, rotate: 5 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            {step.icon}
-          </motion.div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 hover:text-primary transition-colors duration-300">{step.title}</h2>
-          <p className="max-w-xl text-lg text-muted-foreground hover:text-foreground transition-colors duration-500">{step.desc}</p>
-        </motion.div>
-      ))}
-
-      <motion.div
-        className="h-screen flex flex-col justify-center items-center snap-start px-6 text-center"
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        viewport={{ once: false, amount: 0.3 }}
-      >
-        <motion.div 
-          className="mb-4 p-5 rounded-full bg-dark-100 hover:bg-dark-200 cursor-pointer transition-all duration-300"
-          whileHover={{ scale: 1.2, rotate: 15 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          <Mail className="w-8 h-8 text-accent" />
-        </motion.div>
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 hover:text-primary transition-colors duration-300">
-          Vamos conversar?
-        </h2>
-        <p className="text-lg text-muted-foreground mb-6 max-w-lg hover:text-foreground transition-colors duration-500">
-          Estou sempre aberta a novos projetos, parcerias e conexões criativas.
-        </p>
-        <motion.button
-          className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/80 transition-all duration-300"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          Entre em contato
-        </motion.button>
-      </motion.div>
-    </section>
+    </main>
+    </>
   );
 }

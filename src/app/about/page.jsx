@@ -1,7 +1,10 @@
+import Navbar from "@/components/layout/navbar";
 import Link from "next/link"
 
 export default function AboutPage() {
     return (
+      <>
+      <Navbar />
       <section className="min-h-screen bg-background text-foreground px-6 md:px-24 py-32 flex items-center">
       <div 
         className="absolute top-1/4 -left-24 w-64 h-64 rounded-full opacity-50 blur-3xl"
@@ -73,6 +76,7 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+      </>
     );
   }
   
