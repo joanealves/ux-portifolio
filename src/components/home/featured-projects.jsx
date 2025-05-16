@@ -27,9 +27,9 @@ const featuredProjects = [
   },
   {
     id: 3,
-    title: "Dashboard de Análise de Dados",
-    description: "Visualização de dados complexos de forma simples e intuitiva para uma empresa de marketing.",
-    tags: ["Data Visualization", "Dashboard", "B2B"],
+    title: "Plataforma de Imobiliaria",
+    description: "Projeto de Ui site imobiliária",
+    tags: ["UI", "Figma", "Design"],
     image: "/api/placeholder/600/400",
     gradient: "from-amber-500 to-orange-600",
     link: "/projects/data-dashboard"

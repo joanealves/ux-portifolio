@@ -227,9 +227,9 @@ export default function Home() {
           />
         </div>
         <div className="p-8">
-          <h3 id="project-dashboard" className="text-xl font-medium mb-3 group-hover:text-primary transition-colors">Dashboard de Análise de Dados</h3>
+          <h3 id="project-dashboard" className="text-xl font-medium mb-3 group-hover:text-primary transition-colors">WebSite | Imobiliária</h3>
           <p className="text-muted-foreground mb-6">
-            Visualização de dados complexos de forma simples e intuitiva para tomadas de decisão
+            UXUI de website platafora imobiliária.
           </p>
           <span className="inline-flex items-center text-primary hover:text-accent transition-colors group-hover:translate-x-1 duration-300">
             Ver detalhes
