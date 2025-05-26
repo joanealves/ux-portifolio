@@ -96,7 +96,6 @@ export default function Navbar() {
           </ul>
         </nav>
 
-        {/* Menu mobile fixado */}
         <div className="block md:hidden z-50">
           <button 
             className="p-2 text-foreground hover:text-primary focus:outline-none"
