@@ -259,37 +259,7 @@ export default function Home() {
           ref={statsRef} 
           className="container mx-auto px-4 md:px-8 relative z-10"
         >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <motion.div 
-              className="bg-secondary/40 p-8 rounded-xl text-center shadow-lg border border-border hover:border-primary/30 transition-all duration-300"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={statsInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.4 }}
-            >
-              <div className="text-5xl font-bold gradient-text mb-2" aria-label="Mais de 25 projetos concluídos">25+</div>
-              <p className="text-muted-foreground">Projetos Concluídos</p>
-            </motion.div>
-            
-            <motion.div 
-              className="bg-secondary/40 p-8 rounded-xl text-center shadow-lg border border-border hover:border-primary/30 transition-all duration-300"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={statsInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.4, delay: 0.1 }}
-            >
-              <div className="text-5xl font-bold gradient-text mb-2" aria-label="Mais de 5 anos de experiência">5+</div>
-              <p className="text-muted-foreground">Anos de Experiência</p>
-            </motion.div>
-            
-            <motion.div 
-              className="bg-secondary/40 p-8 rounded-xl text-center shadow-lg border border-border hover:border-primary/30 transition-all duration-300"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={statsInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.4, delay: 0.2 }}
-            >
-              <div className="text-5xl font-bold gradient-text mb-2" aria-label="Mais de 15 clientes satisfeitos">15+</div>
-              <p className="text-muted-foreground">Clientes Satisfeitos</p>
-            </motion.div>
-          </div>
+         
         </div>
       </section>
       

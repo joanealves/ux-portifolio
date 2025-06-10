@@ -40,15 +40,7 @@ export default function Footer() {
               <span>UX Lab</span>
             </Link>
           </li>
-          <li>
-            <Link 
-              href="/process" 
-              className="text-muted-foreground hover:text-primary transition-colors duration-300 flex items-center group"
-            >
-              <ArrowRight className="mr-2 h-4 w-4 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0" />
-              <span>Meu Processo</span>
-            </Link>
-          </li>
+          
           <li>
             <Link 
               href="/contact" 
